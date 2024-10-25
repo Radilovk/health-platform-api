@@ -10,6 +10,17 @@ const pool = new Pool({
 
 app.use(express.json());
 
+// Middleware за удостоверяване на API ключ
+app.use((req, res, next) => {
+  const apiKey = req.headers['authorization']; // Очакваме API ключа в заглавката 'Authorization'
+  
+  if (apiKey === process.env.API_KEY) {
+    next(); // Ако API ключа е верен, продължаваме към следващата функция
+  } else {
+    res.status(403).json({ error: "Неоторизиран достъп. Невалиден API ключ." });
+  }
+});
+
 // Функция за създаване на таблици
 async function createTables() {
   const client = await pool.connect();
@@ -47,6 +58,11 @@ async function createTables() {
 
 // Извикване на функцията за създаване на таблици
 createTables().catch(err => console.error("Грешка при инициализация на таблиците:", err));
+
+// Крайна точка за началната страница
+app.get('/', (req, res) => {
+  res.send("Приложението работи! Добре дошли в Health Platform API.");
+});
 
 // Крайна точка за извличане на профили
 app.get('/profiles', async (req, res) => {
