@@ -2,12 +2,10 @@ const express = require('express');
 const app = express();
 const { Pool } = require('pg');
 
-// Свързване с PostgreSQL чрез Heroku
+// Настройка за връзка с PostgreSQL, използвайки DATABASE_URL от Heroku
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 app.use(express.json());
@@ -15,7 +13,10 @@ app.use(express.json());
 // Функция за създаване на таблици
 async function createTables() {
   const client = await pool.connect();
+  console.log("Свързване с базата данни е успешно.");
+
   try {
+    // Създаване на таблица за потребители
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -24,10 +25,9 @@ async function createTables() {
         diet_plan VARCHAR(100)
       );
     `);
+    console.log("Таблицата 'users' е създадена успешно.");
 
-    console.log("Таблицата 'users' е създадена успешно (ако не е съществувала).");
-
-    // Добави други таблици, ако са необходими
+    // Създаване на таблица за диетични планове
     await client.query(`
       CREATE TABLE IF NOT EXISTS diet_plans (
         id SERIAL PRIMARY KEY,
@@ -36,7 +36,7 @@ async function createTables() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log("Таблицата 'diet_plans' е създадена успешно (ако не е съществувала).");
+    console.log("Таблицата 'diet_plans' е създадена успешно.");
 
   } catch (err) {
     console.error("Грешка при създаване на таблиците:", err);
@@ -46,49 +46,44 @@ async function createTables() {
 }
 
 // Извикване на функцията за създаване на таблици
-createTables();
-const express = require('express');
-const app = express();
-const { Pool } = require('pg');
+createTables().catch(err => console.error("Грешка при инициализация на таблиците:", err));
 
-// Свързване с PostgreSQL чрез Heroku
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
+// Крайна точка за извличане на профили
+app.get('/profiles', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Грешка при извличане на профилите:", err);
+    res.status(500).send("Грешка при извличане на профилите.");
   }
 });
 
-app.use(express.json());
-
-// Примерен профил
-let profiles = [
-  { id: '1', name: 'John Doe', goal: 'Lose Weight', dietPlan: 'Low Carb' },
-  { id: '2', name: 'Jane Smith', goal: 'Gain Muscle', dietPlan: 'High Protein' }
-];
-
-// Крайна точка за извличане на профили
-app.get('/profiles', (req, res) => {
-  res.json(profiles);
+// Крайна точка за добавяне на нов профил
+app.post('/profiles', async (req, res) => {
+  const { name, goal, diet_plan } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO users (name, goal, diet_plan) VALUES ($1, $2, $3) RETURNING *',
+      [name, goal, diet_plan]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Грешка при добавяне на нов профил:", err);
+    res.status(500).send("Грешка при добавяне на нов профил.");
+  }
 });
 
-// Крайна точка за добавяне на профил
-app.post('/profiles', (req, res) => {
-  const newProfile = req.body;
-  profiles.push(newProfile);
-  res.status(201).json(newProfile);
-});
-
-// Примерна свързаност с PostgreSQL
+// Крайна точка за свързаност с PostgreSQL (тестова крайна точка)
 app.get('/db', async (req, res) => {
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM test_table');
+    const result = await client.query('SELECT * FROM users');
     res.json(result.rows);
     client.release();
   } catch (err) {
-    console.error(err);
-    res.send('Error ' + err);
+    console.error("Грешка при свързаност с базата данни:", err);
+    res.status(500).send("Грешка при свързаност с базата данни.");
   }
 });
 
