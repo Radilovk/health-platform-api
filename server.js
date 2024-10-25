@@ -10,12 +10,14 @@ const pool = new Pool({
 
 app.use(express.json());
 
-// Middleware за удостоверяване на API ключ
+// Middleware за удостоверяване на API ключ с Bearer токен
 app.use((req, res, next) => {
-  const apiKey = req.headers['authorization']; // Очакваме API ключа в заглавката 'Authorization'
-  
-  if (apiKey === process.env.API_KEY) {
-    next(); // Ако API ключа е верен, продължаваме към следващата функция
+  const authHeader = req.headers['authorization'];
+  const apiKey = process.env.API_KEY;
+
+  // Проверка дали заглавката съдържа Bearer токена
+  if (authHeader && authHeader === `Bearer ${apiKey}`) {
+    next(); // Ако API ключът е правилен, продължаваме
   } else {
     res.status(403).json({ error: "Неоторизиран достъп. Невалиден API ключ." });
   }
