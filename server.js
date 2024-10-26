@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { Pool } = require('pg');
+const path = require('path'); // За работа със статични файлове
 
 // Настройка за връзка с PostgreSQL, използвайки DATABASE_URL от Heroku
 const pool = new Pool({
@@ -9,6 +10,9 @@ const pool = new Pool({
 });
 
 app.use(express.json());
+
+// Сервиране на статични файлове от директорията 'public'
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware за удостоверяване на API ключ с Bearer токен
 app.use((req, res, next) => {
