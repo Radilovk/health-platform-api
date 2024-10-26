@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Platform Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Основен стил за таблото */
+    body {
+      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      border-radius: 10px 10px 0 0;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .bg-primary { background-color: #3498db !important; }
+    .bg-success { background-color: #2ecc71 !important; }
+    .bg-info { background-color: #1abc9c !important; }
+    .bg-warning { background-color: #f39c12 !important; }
+
+    /* Стили за анимация при зареждане */
+    .loading {
+      font-style: italic;
+      color: #bdc3c7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center">Моето здравословно табло</h1>
+
+    <!-- Панел за диетичен план -->
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        Диетичен план
+      </div>
+      <div class="card-body" id="dietPlan">
+        <p class="loading">Зареждане на диетичен план...</p>
+      </div>
+    </div>
+
+    <!-- Панел за препоръки -->
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        Персонализирани препоръки
+      </div>
+      <div class="card-body" id="recommendations">
+        <p class="loading">Зареждане на препоръки...</p>
+      </div>
+    </div>
+
+    <!-- Панел за прогрес -->
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        Прогрес и цели
+      </div>
+      <div class="card-body" id="progress">
+        <p class="loading">Зареждане на прогрес...</p>
+      </div>
+    </div>
+
+    <!-- Панел за статии -->
+    <div class="card">
+      <div class="card-header bg-warning text-white">
+        Статии
+      </div>
+      <div class="card-body" id="articles">
+        <p class="loading">Зареждане на статии...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const apiUrl = "https://health-platform-api-3f74b301d794.herokuapp.com";
+    const apiKey = "Bearer MY_SECRET_TOKEN_123"; // API ключ
+
+    function loadDietPlan() {
+      $.ajax({
+        url: `${apiUrl}/diet-plans`,
+        headers: { 'Authorization': apiKey },
+        success: function(data) {
+          const content = data.length 
+            ? data.map(plan => `<p>${plan.plan_details}</p>`).join('') 
+            : "<p>Няма наличен диетичен план.</p>";
+          $('#dietPlan').html(content);
+        },
+        error: function() {
+          $('#dietPlan').html("<p class='text-danger'>Грешка при зареждане на диетичния план.</p>");
+        }
+      });
+    }
+
+    function loadRecommendations() {
+      $.ajax({
+        url: `${apiUrl}/recommendations`,
+        headers: { 'Authorization': apiKey },
+        success: function(data) {
+          const content = data.length 
+            ? data.map(rec => `<p>${rec.recommendations}</p>`).join('') 
+            : "<p>Няма налични препоръки.</p>";
+          $('#recommendations').html(content);
+        },
+        error: function() {
+          $('#recommendations').html("<p class='text-danger'>Грешка при зареждане на препоръките.</p>");
+        }
+      });
+    }
+
+    function loadProgress() {
+      $.ajax({
+        url: `${apiUrl}/progress`,
+        headers: { 'Authorization': apiKey },
+        success: function(data) {
+          const content = data.length 
+            ? data.map(prog => `<p>Тегло: ${prog.weight} кг, Дата: ${prog.entry_date}</p>`).join('')
+            : "<p>Няма данни за прогрес.</p>";
+          $('#progress').html(content);
+        },
+        error: function() {
+          $('#progress').html("<p class='text-danger'>Грешка при зареждане на прогреса.</p>");
+        }
+      });
+    }
+
+    function loadArticles() {
+      $.ajax({
+        url: `${apiUrl}/articles`,
+        headers: { 'Authorization': apiKey },
+        success: function(data) {
+          const content = data.length 
+            ? data.map(article => `<h5>${article.title}</h5><p>${article.content}</p>`).join('')
+            : "<p>Няма налични статии.</p>";
+          $('#articles').html(content);
+        },
+        error: function() {
+          $('#articles').html("<p class='text-danger'>Грешка при зареждане на статиите.</p>");
+        }
+      });
+    }
+
+    // Зареждане на всички секции при стартиране
+    $(document).ready(function() {
+      loadDietPlan();
+      loadRecommendations();
+      loadProgress();
+      loadArticles();
+    });
+  </script>
+</body>
+</html>
