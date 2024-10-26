@@ -14,8 +14,8 @@ app.use(express.json());
 // Сервиране на статични файлове от директорията 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware за удостоверяване на API ключ с Bearer токен
-app.use((req, res, next) => {
+// Middleware за удостоверяване на API ключ (само за API маршрути)
+function authMiddleware(req, res, next) {
   const authHeader = req.headers['authorization'];
   const apiKey = process.env.API_KEY;
 
@@ -24,7 +24,14 @@ app.use((req, res, next) => {
   } else {
     res.status(403).json({ error: "Неоторизиран достъп. Невалиден API ключ." });
   }
-});
+}
+
+// Прилагане на удостоверяване с API ключ само за API маршрутите
+app.use('/profiles', authMiddleware);
+app.use('/diet-plans', authMiddleware);
+app.use('/recommendations', authMiddleware);
+app.use('/articles', authMiddleware);
+app.use('/progress', authMiddleware);
 
 // Функция за създаване на таблици
 async function createTables() {
