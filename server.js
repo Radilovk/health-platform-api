@@ -15,7 +15,6 @@ app.use((req, res, next) => {
   const authHeader = req.headers['authorization'];
   const apiKey = process.env.API_KEY;
 
-  // Проверка дали заглавката съдържа Bearer токена
   if (authHeader && authHeader === `Bearer ${apiKey}`) {
     next(); // Ако API ключът е правилен, продължаваме
   } else {
@@ -29,7 +28,7 @@ async function createTables() {
   console.log("Свързване с базата данни е успешно.");
 
   try {
-    // Създаване на таблица за потребители
+    // Таблица за потребители
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -40,7 +39,7 @@ async function createTables() {
     `);
     console.log("Таблицата 'users' е създадена успешно.");
 
-    // Създаване на таблица за диетични планове
+    // Таблица за диетични планове
     await client.query(`
       CREATE TABLE IF NOT EXISTS diet_plans (
         id SERIAL PRIMARY KEY,
@@ -50,6 +49,39 @@ async function createTables() {
       );
     `);
     console.log("Таблицата 'diet_plans' е създадена успешно.");
+
+    // Таблица за въпросника
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS questionnaire_responses (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        responses JSONB,
+        submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Таблицата 'questionnaire_responses' е създадена успешно.");
+
+    // Таблица за препоръки
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS recommendations (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        recommendations TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Таблицата 'recommendations' е създадена успешно.");
+
+    // Таблица за статии
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS articles (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255),
+        content TEXT,
+        published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Таблицата 'articles' е създадена успешно.");
 
   } catch (err) {
     console.error("Грешка при създаване на таблиците:", err);
@@ -89,6 +121,62 @@ app.post('/profiles', async (req, res) => {
   } catch (err) {
     console.error("Грешка при добавяне на нов профил:", err);
     res.status(500).send("Грешка при добавяне на нов профил.");
+  }
+});
+
+// Крайна точка за съхранение на отговорите от въпросника
+app.post('/questionnaire', async (req, res) => {
+  const { user_id, responses } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO questionnaire_responses (user_id, responses) VALUES ($1, $2) RETURNING *',
+      [user_id, responses]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Грешка при съхранение на отговорите от въпросника:", err);
+    res.status(500).send("Грешка при съхранение на отговорите от въпросника.");
+  }
+});
+
+// Крайна точка за генериране на препоръки
+app.post('/recommendations', async (req, res) => {
+  const { user_id, recommendations } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO recommendations (user_id, recommendations) VALUES ($1, $2) RETURNING *',
+      [user_id, recommendations]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Грешка при добавяне на препоръки:", err);
+    res.status(500).send("Грешка при добавяне на препоръки.");
+  }
+});
+
+// Крайна точка за извличане на статии
+app.get('/articles', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM articles');
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Грешка при извличане на статиите:", err);
+    res.status(500).send("Грешка при извличане на статиите.");
+  }
+});
+
+// Крайна точка за добавяне на нова статия
+app.post('/articles', async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO articles (title, content) VALUES ($1, $2) RETURNING *',
+      [title, content]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Грешка при добавяне на нова статия:", err);
+    res.status(500).send("Грешка при добавяне на нова статия.");
   }
 });
 
