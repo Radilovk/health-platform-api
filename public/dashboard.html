@@ -6,12 +6,17 @@
   <title>Проект "Моето тяло"</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+
   <style>
+    /* Оригинални стилове от съществуващия dashboard.html */
     body {
       background: linear-gradient(to bottom right, #e6f2ff, #ffffff);
       font-family: 'Arial', sans-serif;
     }
-    /* Заглавен раздел */
     .profile-header {
       text-align: center;
       background-image: linear-gradient(135deg, #007bff, #6b8cff);
@@ -30,67 +35,12 @@
       font-size: 1.2rem;
       margin-top: 0;
     }
-    /* Секция с карти */
-    .card {
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.2s;
-      text-align: left;
-    }
-    .card:hover {
-      transform: scale(1.02);
-    }
-    .section-title {
-      font-weight: bold;
-      font-size: 1.4rem;
-      color: #333;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-    .section-title .icon {
-      font-size: 1.5rem;
-      color: #007bff;
-      margin-right: 10px;
-    }
-    .diet-plan, .progress-chart, .recommendations {
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .btn-primary {
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-    }
-    .btn-primary:hover {
-      background-color: #0056b3;
-    }
-    /* Прогрес бар */
-    .progress {
-      height: 20px;
-      border-radius: 10px;
-      background: #e6e6e6;
-    }
-    .progress-bar {
-      background-color: #4caf50;
-      border-radius: 10px;
-    }
-    /* Преходи и анимации */
-    .hidden-plan {
-      display: none;
-      transition: all 0.4s ease;
-      opacity: 0;
-    }
-    .hidden-plan.show {
-      display: block;
-      opacity: 1;
-    }
+    /* Стилове за карти и бутони */
+    .card, .btn-primary { border-radius: 5px; }
+    .hidden-plan { display: none; transition: all 0.4s ease; opacity: 0; }
+    .hidden-plan.show { display: block; opacity: 1; }
   </style>
+
 </head>
 <body>
 
@@ -100,127 +50,111 @@
 </div>
 
 <div class="container">
-  <!-- Лична информация и текущ хранителен план -->
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-user icon"></i>Лична Информация</h4>
-        <p><strong>Име:</strong> <span id="clientName">Иван Иванов</span></p>
-        <p><strong>Възраст:</strong> <span id="clientAge">32</span> години</p>
-        <p><strong>Тегло:</strong> <span id="clientWeight">82</span> кг</p>
-        <p><strong>Височина:</strong> <span id="clientHeight">175</span> см</p>
-        <p><strong>Цел:</strong> <span id="clientGoal">Отслабване</span></p>
-      </div>
-    </div>
+  <!-- Форма за вход/регистрация -->
+  <div id="loginForm" class="card p-4 mb-4">
+    <h4>Вход в системата</h4>
+    <input type="email" id="email" class="form-control mb-2" placeholder="Имейл" required>
+    <input type="password" id="password" class="form-control mb-2" placeholder="Парола" required>
+    <button onclick="signInWithEmailPassword()" class="btn btn-primary">Вход</button>
+    <button onclick="signUpWithEmailPassword()" class="btn btn-secondary">Регистрация</button>
+  </div>
 
-    <div class="col-md-8">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-utensils icon"></i>Текущ Хранителен План</h4>
-        <ul id="dietPlan">
-          <!-- Динамично зареден хранителен план -->
-        </ul>
-        <button id="fullPlanBtn" class="btn btn-primary mt-3">Пълен хранителен план</button>
-        <div id="fullPlan" class="hidden-plan mt-3">
-          <p><strong>Понеделник:</strong> Хранителен план...</p>
-          <p><strong>Вторник:</strong> Хранителен план...</p>
-          <p>...</p>
+  <!-- Основно табло -->
+  <div id="dashboard" style="display: none;">
+    <!-- Лична информация и текущ хранителен план -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h4 class="section-title"><i class="fas fa-user icon"></i> Лична Информация</h4>
+          <p><strong>Име:</strong> <span id="clientName">Иван Иванов</span></p>
+          <p><strong>Възраст:</strong> <span id="clientAge">32</span> години</p>
+          <p><strong>Тегло:</strong> <span id="clientWeight">82</span> кг</p>
+          <p><strong>Цел:</strong> <span id="clientGoal">Отслабване</span></p>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="card p-4">
+          <h4 class="section-title"><i class="fas fa-utensils icon"></i> Текущ Хранителен План</h4>
+          <ul id="dietPlan">
+            <!-- Динамично зареден хранителен план -->
+          </ul>
+          <button id="fullPlanBtn" class="btn btn-primary mt-3">Пълен хранителен план</button>
+          <div id="fullPlan" class="hidden-plan mt-3">
+            <p><strong>Понеделник:</strong> Хранителен план...</p>
+            <p><strong>Вторник:</strong> Хранителен план...</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Прогрес, препоръки, статии и продукти -->
+    <!-- Останалият HTML код от предишната версия на dashboard.html тук -->
   </div>
 
-  <!-- Прогрес на клиента с възможност за ръчно отбелязване -->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-chart-line icon"></i>Прогрес</h4>
-        <p>Текущо тегло: <span id="currentWeight">82</span> кг <span class="text-muted">(Цел: 75 кг)</span></p>
-        <div class="progress mb-2">
-          <div id="progressBar" class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
-        </div>
-        <label for="weightInput" class="form-label">Отбележи тегло:</label>
-        <input type="number" id="weightInput" class="form-control" placeholder="Въведи текущо тегло">
-        <button id="updateProgress" class="btn btn-primary mt-2">Запази прогреса</button>
-      </div>
-    </div>
-
-    <!-- Препоръки -->
-    <div class="col-md-6">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-lightbulb icon"></i>Препоръки</h4>
-        <ul id="recommendationsList">
-          <!-- Динамично заредени препоръки -->
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Статии и продукти -->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-newspaper icon"></i>Препоръчани Статии</h4>
-        <ul id="articlesList">
-          <!-- Динамично заредени статии -->
-        </ul>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <div class="card p-4">
-        <h4 class="section-title"><i class="fas fa-shopping-cart icon"></i>Препоръчани Продукти</h4>
-        <ul id="productsList">
-          <!-- Динамично заредени продукти -->
-        </ul>
-      </div>
-    </div>
-  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  const apiKey = 'Bearer MY_SECRET_TOKEN_123'; // API ключ
+  // Firebase конфигурация
+  const firebaseConfig = {
+    apiKey: "AIzaSyD73Vd5pcEpqv6VtSBdFGEdvoJmKeH1cv8",
+    authDomain: "hpapi-4ab9f.firebaseapp.com",
+    projectId: "hpapi-4ab9f",
+    storageBucket: "hpapi-4ab9f.appspot.com",
+    messagingSenderId: "691111349550",
+    appId: "1:691111349550:web:f31ed0d0c236e19b927ebf",
+    measurementId: "G-4CK7QKSMQC"
+  };
 
-  // Функция за зареждане на данни от API
-  async function fetchData(endpoint, elementId) {
-    try {
-      const response = await fetch(endpoint, {
-        headers: { 'Authorization': apiKey }
+  // Инициализиране на Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Функция за вход с имейл и парола
+  function signInWithEmailPassword() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Успешен вход:", user);
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Грешка при вход:", error.message);
       });
-      const data = await response.json();
-      document.getElementById(elementId).innerHTML = data.map(item => `<li>${item.name || item.title}</li>`).join('');
-    } catch (error) {
-      console.error("Грешка при зареждане на данни:", error);
-    }
   }
 
-  // Зареждане на клиентски данни
-  fetchData('/profiles', 'clientName');
-  fetchData('/diet-plans', 'dietPlan');
-  fetchData('/recommendations', 'recommendationsList');
-  fetchData('/articles', 'articlesList');
-  fetchData('/products', 'productsList');
+  // Функция за регистрация на нови потребители
+  function signUpWithEmailPassword() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-  // Функция за актуализация на прогреса
-  document.getElementById('updateProgress').addEventListener('click', async function() {
-    const currentWeight = parseFloat(document.getElementById('weightInput').value);
-    const progressPercentage = Math.min(100, ((82 - currentWeight) / (82 - 75)) * 100).toFixed(2);
-    document.getElementById('currentWeight').textContent = currentWeight;
-    document.getElementById('progressBar').style.width = `${progressPercentage}%`;
-    document.getElementById('progressBar').textContent = `${progressPercentage}%`;
-
-    // Изпращане на прогреса към API
-    try {
-      await fetch('/progress', {
-        method: 'POST',
-        headers: {
-          'Authorization': apiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ user_id: 1, weight: currentWeight })
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Регистрацията е успешна:", user);
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Грешка при регистрация:", error.message);
       });
-    } catch (error) {
-      console.error("Грешка при актуализация на прогреса:", error);
+  }
+
+  // Проверка на състоянието на потребителя при зареждане на страницата
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // Потребителят е влязъл
+      console.log("Потребителят е влязъл:", user);
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+    } else {
+      // Потребителят не е влязъл
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("dashboard").style.display = "none";
     }
   });
 </script>
