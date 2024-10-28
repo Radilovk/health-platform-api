@@ -3,62 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Диетологичен Профил</title>
+  <title>Проект "Моето тяло"</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f4f7fa;
+      background: linear-gradient(to bottom right, #e6f2ff, #ffffff);
+      font-family: 'Arial', sans-serif;
     }
+    /* Заглавен раздел */
     .profile-header {
       text-align: center;
       background-image: linear-gradient(135deg, #007bff, #6b8cff);
       color: white;
-      padding: 40px;
-      margin-bottom: 20px;
+      padding: 50px;
       border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     }
     .profile-header h1 {
-      font-size: 2.8rem;
-      font-weight: bold;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .profile-header p {
+      font-size: 1.2rem;
+      margin-top: 0;
+    }
+    /* Секция с карти */
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+      text-align: left;
+    }
+    .card:hover {
+      transform: scale(1.02);
     }
     .section-title {
       font-weight: bold;
-      font-size: 1.3rem;
-      color: #555;
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
     }
-    .card {
-      border: none;
+    .section-title .icon {
+      font-size: 1.5rem;
+      color: #007bff;
+      margin-right: 10px;
+    }
+    .diet-plan, .progress-chart, .recommendations {
+      background: #ffffff;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
     }
     .btn-primary {
-      background-color: #6b8cff;
+      background-color: #007bff;
       border: none;
       border-radius: 5px;
       padding: 10px 20px;
     }
     .btn-primary:hover {
-      background-color: #5a7be1;
+      background-color: #0056b3;
+    }
+    /* Прогрес бар */
+    .progress {
+      height: 20px;
+      border-radius: 10px;
+      background: #e6e6e6;
     }
     .progress-bar {
-      background-color: #28a745;
+      background-color: #4caf50;
+      border-radius: 10px;
     }
-    .show-more {
-      cursor: pointer;
-      color: #007bff;
-    }
+    /* Преходи и анимации */
     .hidden-plan {
       display: none;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      opacity: 0;
+    }
+    .hidden-plan.show {
+      display: block;
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
 <div class="profile-header">
-  <h1>Диетологичен Профил на Клиента</h1>
+  <h1>Проект "Моето тяло"</h1>
   <p>Персонализиран хранителен и тренировъчен план</p>
 </div>
 
@@ -66,8 +103,8 @@
   <!-- Лична информация и текущ хранителен план -->
   <div class="row">
     <div class="col-md-4">
-      <div class="card p-3">
-        <h4 class="section-title">Лична Информация</h4>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-user icon"></i>Лична Информация</h4>
         <p><strong>Име:</strong> Иван Иванов</p>
         <p><strong>Възраст:</strong> 32 години</p>
         <p><strong>Тегло:</strong> 82 кг</p>
@@ -77,15 +114,15 @@
     </div>
 
     <div class="col-md-8">
-      <div class="card p-3">
-        <h4 class="section-title">Текущ Хранителен План</h4>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-utensils icon"></i>Текущ Хранителен План</h4>
         <ul>
           <li><strong>Закуска:</strong> Омлет с три яйца и зеленчуци</li>
           <li><strong>Обяд:</strong> Пилешка салата с киноа и авокадо</li>
           <li><strong>Следобедна закуска:</strong> Чаша кисело мляко с ядки</li>
           <li><strong>Вечеря:</strong> Печена сьомга със задушени зеленчуци</li>
         </ul>
-        <button id="fullPlanBtn" class="btn btn-primary mt-2">Пълен хранителен план</button>
+        <button id="fullPlanBtn" class="btn btn-primary mt-3">Пълен хранителен план</button>
         <div id="fullPlan" class="hidden-plan mt-3">
           <p><strong>Понеделник:</strong> Хранителен план...</p>
           <p><strong>Вторник:</strong> Хранителен план...</p>
@@ -95,21 +132,25 @@
     </div>
   </div>
 
-  <!-- Прогрес, препоръки, статии и продукти -->
+  <!-- Прогрес на клиента с възможност за ръчно отбелязване -->
   <div class="row">
     <div class="col-md-6">
-      <div class="card p-3">
-        <h4 class="section-title">Прогрес</h4>
-        <p>Текущо тегло: 82 кг <span class="text-muted">(Цел: 75 кг)</span></p>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-chart-line icon"></i>Прогрес</h4>
+        <p>Текущо тегло: <span id="currentWeight">82</span> кг <span class="text-muted">(Цел: 75 кг)</span></p>
+        <div class="progress mb-2">
+          <div id="progressBar" class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
         </div>
+        <label for="weightInput" class="form-label">Отбележи тегло:</label>
+        <input type="number" id="weightInput" class="form-control" placeholder="Въведи текущо тегло">
+        <button id="updateProgress" class="btn btn-primary mt-2">Запази прогреса</button>
       </div>
     </div>
 
+    <!-- Препоръки -->
     <div class="col-md-6">
-      <div class="card p-3">
-        <h4 class="section-title">Препоръки</h4>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-lightbulb icon"></i>Препоръки</h4>
         <ul>
           <li>Приемай достатъчно вода (2 литра на ден)</li>
           <li>Избягвай захар и преработени храни</li>
@@ -123,8 +164,8 @@
   <!-- Статии и продукти -->
   <div class="row">
     <div class="col-md-6">
-      <div class="card p-3">
-        <h4 class="section-title">Препоръчани Статии</h4>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-newspaper icon"></i>Препоръчани Статии</h4>
         <ul>
           <li><a href="#">Как да поддържаме балансирано хранене?</a></li>
           <li><a href="#">Полезни съвети за отслабване</a></li>
@@ -135,8 +176,8 @@
     </div>
 
     <div class="col-md-6">
-      <div class="card p-3">
-        <h4 class="section-title">Препоръчани Продукти</h4>
+      <div class="card p-4">
+        <h4 class="section-title"><i class="fas fa-shopping-cart icon"></i>Препоръчани Продукти</h4>
         <ul>
           <li><i class="fas fa-pills"></i> Омега-3 капсули – Поддържа здравето на сърцето и ставите</li>
           <li><i class="fas fa-pills"></i> Протеинов шейк – За възстановяване след тренировка</li>
@@ -151,9 +192,21 @@
 <script>
   document.getElementById('fullPlanBtn').addEventListener('click', function() {
     const fullPlan = document.getElementById('fullPlan');
-    fullPlan.style.display = fullPlan.style.display === 'none' || fullPlan.style.display === '' ? 'block' : 'none';
+    fullPlan.classList.toggle('show');
+  });
+
+  document.getElementById('updateProgress').addEventListener('click', function() {
+    const currentWeight = parseFloat(document.getElementById('weightInput').value);
+    const targetWeight = 75;
+    if (currentWeight && currentWeight > 0) {
+      const progressPercentage = Math.min(100, ((82 - currentWeight) / (82 - targetWeight)) * 100).toFixed(2);
+      document.getElementById('currentWeight').textContent = currentWeight;
+      document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+      document.getElementById('progressBar').textContent = `${progressPercentage}%`;
+    }
   });
 </script>
 
 </body>
 </html>
+ 
