@@ -105,22 +105,19 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h4 class="section-title"><i class="fas fa-user icon"></i>Лична Информация</h4>
-        <p><strong>Име:</strong> Иван Иванов</p>
-        <p><strong>Възраст:</strong> 32 години</p>
-        <p><strong>Тегло:</strong> 82 кг</p>
-        <p><strong>Височина:</strong> 175 см</p>
-        <p><strong>Цел:</strong> Отслабване</p>
+        <p><strong>Име:</strong> <span id="clientName">Иван Иванов</span></p>
+        <p><strong>Възраст:</strong> <span id="clientAge">32</span> години</p>
+        <p><strong>Тегло:</strong> <span id="clientWeight">82</span> кг</p>
+        <p><strong>Височина:</strong> <span id="clientHeight">175</span> см</p>
+        <p><strong>Цел:</strong> <span id="clientGoal">Отслабване</span></p>
       </div>
     </div>
 
     <div class="col-md-8">
       <div class="card p-4">
         <h4 class="section-title"><i class="fas fa-utensils icon"></i>Текущ Хранителен План</h4>
-        <ul>
-          <li><strong>Закуска:</strong> Омлет с три яйца и зеленчуци</li>
-          <li><strong>Обяд:</strong> Пилешка салата с киноа и авокадо</li>
-          <li><strong>Следобедна закуска:</strong> Чаша кисело мляко с ядки</li>
-          <li><strong>Вечеря:</strong> Печена сьомга със задушени зеленчуци</li>
+        <ul id="dietPlan">
+          <!-- Динамично зареден хранителен план -->
         </ul>
         <button id="fullPlanBtn" class="btn btn-primary mt-3">Пълен хранителен план</button>
         <div id="fullPlan" class="hidden-plan mt-3">
@@ -151,11 +148,8 @@
     <div class="col-md-6">
       <div class="card p-4">
         <h4 class="section-title"><i class="fas fa-lightbulb icon"></i>Препоръки</h4>
-        <ul>
-          <li>Приемай достатъчно вода (2 литра на ден)</li>
-          <li>Избягвай захар и преработени храни</li>
-          <li>Увеличи приема на зеленчуци и плодове</li>
-          <li>Поддържай редовна физическа активност</li>
+        <ul id="recommendationsList">
+          <!-- Динамично заредени препоръки -->
         </ul>
       </div>
     </div>
@@ -166,11 +160,8 @@
     <div class="col-md-6">
       <div class="card p-4">
         <h4 class="section-title"><i class="fas fa-newspaper icon"></i>Препоръчани Статии</h4>
-        <ul>
-          <li><a href="#">Как да поддържаме балансирано хранене?</a></li>
-          <li><a href="#">Полезни съвети за отслабване</a></li>
-          <li><a href="#">Хранителни добавки за енергия</a></li>
-          <li><a href="#">Как да се мотивираме за спорт?</a></li>
+        <ul id="articlesList">
+          <!-- Динамично заредени статии -->
         </ul>
       </div>
     </div>
@@ -178,10 +169,8 @@
     <div class="col-md-6">
       <div class="card p-4">
         <h4 class="section-title"><i class="fas fa-shopping-cart icon"></i>Препоръчани Продукти</h4>
-        <ul>
-          <li><i class="fas fa-pills"></i> Омега-3 капсули – Поддържа здравето на сърцето и ставите</li>
-          <li><i class="fas fa-pills"></i> Протеинов шейк – За възстановяване след тренировка</li>
-          <li><i class="fas fa-pills"></i> Витамин D – Поддържа имунната система</li>
+        <ul id="productsList">
+          <!-- Динамично заредени продукти -->
         </ul>
       </div>
     </div>
@@ -190,23 +179,51 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  document.getElementById('fullPlanBtn').addEventListener('click', function() {
-    const fullPlan = document.getElementById('fullPlan');
-    fullPlan.classList.toggle('show');
-  });
+  const apiKey = 'Bearer MY_SECRET_TOKEN_123'; // API ключ
 
-  document.getElementById('updateProgress').addEventListener('click', function() {
+  // Функция за зареждане на данни от API
+  async function fetchData(endpoint, elementId) {
+    try {
+      const response = await fetch(endpoint, {
+        headers: { 'Authorization': apiKey }
+      });
+      const data = await response.json();
+      document.getElementById(elementId).innerHTML = data.map(item => `<li>${item.name || item.title}</li>`).join('');
+    } catch (error) {
+      console.error("Грешка при зареждане на данни:", error);
+    }
+  }
+
+  // Зареждане на клиентски данни
+  fetchData('/profiles', 'clientName');
+  fetchData('/diet-plans', 'dietPlan');
+  fetchData('/recommendations', 'recommendationsList');
+  fetchData('/articles', 'articlesList');
+  fetchData('/products', 'productsList');
+
+  // Функция за актуализация на прогреса
+  document.getElementById('updateProgress').addEventListener('click', async function() {
     const currentWeight = parseFloat(document.getElementById('weightInput').value);
-    const targetWeight = 75;
-    if (currentWeight && currentWeight > 0) {
-      const progressPercentage = Math.min(100, ((82 - currentWeight) / (82 - targetWeight)) * 100).toFixed(2);
-      document.getElementById('currentWeight').textContent = currentWeight;
-      document.getElementById('progressBar').style.width = `${progressPercentage}%`;
-      document.getElementById('progressBar').textContent = `${progressPercentage}%`;
+    const progressPercentage = Math.min(100, ((82 - currentWeight) / (82 - 75)) * 100).toFixed(2);
+    document.getElementById('currentWeight').textContent = currentWeight;
+    document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+    document.getElementById('progressBar').textContent = `${progressPercentage}%`;
+
+    // Изпращане на прогреса към API
+    try {
+      await fetch('/progress', {
+        method: 'POST',
+        headers: {
+          'Authorization': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user_id: 1, weight: currentWeight })
+      });
+    } catch (error) {
+      console.error("Грешка при актуализация на прогреса:", error);
     }
   });
 </script>
 
 </body>
 </html>
- 
