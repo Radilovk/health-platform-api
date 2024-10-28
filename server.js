@@ -25,7 +25,7 @@ function authMiddleware(req, res, next) {
 }
 
 // Прилагане на Middleware за удостоверяване само за API маршрутите
-app.use(['/profiles', '/diet-plans', '/recommendations', '/articles', '/progress', '/products'], authMiddleware);
+app.use(['/profiles', '/diet-plans', '/recommendations', '/articles', '/progress', '/products', '/goals'], authMiddleware);
 
 // Функция за създаване на таблици
 async function createTables() {
@@ -33,6 +33,7 @@ async function createTables() {
   console.log("Свързване с базата данни е успешно.");
 
   try {
+    // Основни таблици
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -78,12 +79,37 @@ async function createTables() {
       );
     `);
 
+    // Таблица за цели
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS goals (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        goal_type VARCHAR(100),
+        target_value DECIMAL,
+        start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        end_date TIMESTAMP
+      );
+    `);
+
+    // Добавяне на measurements колона в progress, ако не съществува
+    await client.query(`
+      DO $$ 
+      BEGIN
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                       WHERE table_name='progress' AND column_name='measurements') THEN
+          ALTER TABLE progress ADD COLUMN measurements JSONB;
+        END IF;
+      END $$;
+    `);
+
+    // Таблица за прогрес с measurements
     await client.query(`
       CREATE TABLE IF NOT EXISTS progress (
         id SERIAL PRIMARY KEY,
         user_id INTEGER REFERENCES users(id),
         weight DECIMAL,
-        entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        measurements JSONB
       );
     `);
 
@@ -133,96 +159,69 @@ app.post('/profiles', async (req, res) => {
   }
 });
 
-// Актуализиране на профил
-app.put('/profiles/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, goal, diet_plan } = req.body;
+// Управление на цели
+app.get('/goals', async (req, res) => {
   try {
-    const result = await pool.query(
-      'UPDATE users SET name = $1, goal = $2, diet_plan = $3 WHERE id = $4 RETURNING *',
-      [name, goal, diet_plan, id]
-    );
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Грешка при актуализиране на профила:", err);
-    res.status(500).send("Грешка при актуализиране на профила.");
-  }
-});
-
-// Изтриване на профил
-app.delete('/profiles/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    await pool.query('DELETE FROM users WHERE id = $1', [id]);
-    res.status(204).send();
-  } catch (err) {
-    console.error("Грешка при изтриване на профила:", err);
-    res.status(500).send("Грешка при изтриване на профила.");
-  }
-});
-
-// Управление на продукти за онлайн магазин
-app.get('/products', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM products');
+    const result = await pool.query('SELECT * FROM goals');
     res.json(result.rows);
   } catch (err) {
-    console.error("Грешка при извличане на продукти:", err);
-    res.status(500).send("Грешка при извличане на продукти.");
+    console.error("Грешка при извличане на целите:", err);
+    res.status(500).send("Грешка при извличане на целите.");
   }
 });
 
-app.post('/products', async (req, res) => {
-  const { name, description, price, stock, image_url } = req.body;
+app.post('/goals', async (req, res) => {
+  const { user_id, goal_type, target_value, end_date } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO products (name, description, price, stock, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [name, description, price, stock, image_url]
+      'INSERT INTO goals (user_id, goal_type, target_value, end_date) VALUES ($1, $2, $3, $4) RETURNING *',
+      [user_id, goal_type, target_value, end_date]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при добавяне на продукт:", err);
-    res.status(500).send("Грешка при добавяне на продукт.");
+    console.error("Грешка при добавяне на нова цел:", err);
+    res.status(500).send("Грешка при добавяне на нова цел.");
   }
 });
 
-// Актуализиране на продукт
-app.put('/products/:id', async (req, res) => {
+app.put('/goals/:id', async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, stock, image_url } = req.body;
+  const { goal_type, target_value, end_date } = req.body;
   try {
     const result = await pool.query(
-      'UPDATE products SET name = $1, description = $2, price = $3, stock = $4, image_url = $5 WHERE id = $6 RETURNING *',
-      [name, description, price, stock, image_url, id]
+      'UPDATE goals SET goal_type = $1, target_value = $2, end_date = $3 WHERE id = $4 RETURNING *',
+      [goal_type, target_value, end_date, id]
     );
     res.json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при актуализиране на продукт:", err);
-    res.status(500).send("Грешка при актуализиране на продукт.");
+    console.error("Грешка при актуализиране на целта:", err);
+    res.status(500).send("Грешка при актуализиране на целта.");
   }
 });
 
-// Изтриване на продукт
-app.delete('/products/:id', async (req, res) => {
+app.delete('/goals/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await pool.query('DELETE FROM products WHERE id = $1', [id]);
+    await pool.query('DELETE FROM goals WHERE id = $1', [id]);
     res.status(204).send();
   } catch (err) {
-    console.error("Грешка при изтриване на продукт:", err);
-    res.status(500).send("Грешка при изтриване на продукт.");
+    console.error("Грешка при изтриване на целта:", err);
+    res.status(500).send("Грешка при изтриване на целта.");
   }
 });
 
-// Пример за извличане на конкретен продукт
-app.get('/products/:id', async (req, res) => {
-  const { id } = req.params;
+// Управление на прогрес
+app.post('/progress', async (req, res) => {
+  const { user_id, weight, measurements } = req.body;
   try {
-    const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
-    res.json(result.rows[0]);
+    const result = await pool.query(
+      'INSERT INTO progress (user_id, weight, measurements) VALUES ($1, $2, $3) RETURNING *',
+      [user_id, weight, measurements]
+    );
+    res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при извличане на продукта:", err);
-    res.status(500).send("Грешка при извличане на продукта.");
+    console.error("Грешка при добавяне на прогрес:", err);
+    res.status(500).send("Грешка при добавяне на прогрес.");
   }
 });
 
