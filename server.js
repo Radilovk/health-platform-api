@@ -134,6 +134,11 @@ async function createTables() {
 // Извикване на функцията за създаване на таблици
 createTables().catch(err => console.error("Грешка при инициализация на таблиците:", err));
 
+// Крайна точка за началната страница
+app.get('/', (req, res) => {
+  res.send("Добре дошли в Health Platform API! Приложението работи.");
+});
+
 // Крайни точки за управление на потребителски профили
 app.get('/profiles', async (req, res) => {
   try {
@@ -181,32 +186,6 @@ app.post('/goals', async (req, res) => {
   } catch (err) {
     console.error("Грешка при добавяне на нова цел:", err);
     res.status(500).send("Грешка при добавяне на нова цел.");
-  }
-});
-
-app.put('/goals/:id', async (req, res) => {
-  const { id } = req.params;
-  const { goal_type, target_value, end_date } = req.body;
-  try {
-    const result = await pool.query(
-      'UPDATE goals SET goal_type = $1, target_value = $2, end_date = $3 WHERE id = $4 RETURNING *',
-      [goal_type, target_value, end_date, id]
-    );
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Грешка при актуализиране на целта:", err);
-    res.status(500).send("Грешка при актуализиране на целта.");
-  }
-});
-
-app.delete('/goals/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    await pool.query('DELETE FROM goals WHERE id = $1', [id]);
-    res.status(204).send();
-  } catch (err) {
-    console.error("Грешка при изтриване на целта:", err);
-    res.status(500).send("Грешка при изтриване на целта.");
   }
 });
 
