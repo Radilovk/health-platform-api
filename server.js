@@ -1,37 +1,31 @@
 const express = require('express');
 const app = express();
 const { Pool } = require('pg');
-const path = require('path'); // За работа със статични файлове
+const path = require('path');
 
-// Настройка за връзка с PostgreSQL, използвайки DATABASE_URL от Heroku
+// Настройка за връзка с PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 app.use(express.json());
-
-// Сервиране на статични файлове от директорията 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware за удостоверяване на API ключ (само за API маршрути)
+// Middleware за удостоверяване на API ключ
 function authMiddleware(req, res, next) {
   const authHeader = req.headers['authorization'];
   const apiKey = process.env.API_KEY;
 
   if (authHeader && authHeader === `Bearer ${apiKey}`) {
-    next(); // Ако API ключът е правилен, продължаваме
+    next(); 
   } else {
     res.status(403).json({ error: "Неоторизиран достъп. Невалиден API ключ." });
   }
 }
 
-// Прилагане на удостоверяване с API ключ само за API маршрутите
-app.use('/profiles', authMiddleware);
-app.use('/diet-plans', authMiddleware);
-app.use('/recommendations', authMiddleware);
-app.use('/articles', authMiddleware);
-app.use('/progress', authMiddleware);
+// Прилагане на Middleware за удостоверяване само за API маршрутите
+app.use(['/profiles', '/diet-plans', '/recommendations', '/articles', '/progress', '/products'], authMiddleware);
 
 // Функция за създаване на таблици
 async function createTables() {
@@ -39,7 +33,6 @@ async function createTables() {
   console.log("Свързване с базата данни е успешно.");
 
   try {
-    // Таблица за потребители
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -48,9 +41,7 @@ async function createTables() {
         diet_plan VARCHAR(100)
       );
     `);
-    console.log("Таблицата 'users' е създадена успешно.");
 
-    // Таблица за диетични планове
     await client.query(`
       CREATE TABLE IF NOT EXISTS diet_plans (
         id SERIAL PRIMARY KEY,
@@ -59,9 +50,7 @@ async function createTables() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log("Таблицата 'diet_plans' е създадена успешно.");
 
-    // Таблица за въпросника
     await client.query(`
       CREATE TABLE IF NOT EXISTS questionnaire_responses (
         id SERIAL PRIMARY KEY,
@@ -70,9 +59,7 @@ async function createTables() {
         submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log("Таблицата 'questionnaire_responses' е създадена успешно.");
 
-    // Таблица за препоръки
     await client.query(`
       CREATE TABLE IF NOT EXISTS recommendations (
         id SERIAL PRIMARY KEY,
@@ -81,9 +68,7 @@ async function createTables() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log("Таблицата 'recommendations' е създадена успешно.");
 
-    // Таблица за статии
     await client.query(`
       CREATE TABLE IF NOT EXISTS articles (
         id SERIAL PRIMARY KEY,
@@ -92,7 +77,26 @@ async function createTables() {
         published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log("Таблицата 'articles' е създадена успешно.");
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS progress (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        weight DECIMAL,
+        entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS products (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        description TEXT,
+        price DECIMAL,
+        stock INTEGER,
+        image_url VARCHAR(255)
+      );
+    `);
 
   } catch (err) {
     console.error("Грешка при създаване на таблиците:", err);
@@ -104,12 +108,7 @@ async function createTables() {
 // Извикване на функцията за създаване на таблици
 createTables().catch(err => console.error("Грешка при инициализация на таблиците:", err));
 
-// Крайна точка за началната страница
-app.get('/', (req, res) => {
-  res.send("Приложението работи! Добре дошли в Health Platform API.");
-});
-
-// Крайна точка за извличане на профили
+// Крайни точки за управление на потребителски профили
 app.get('/profiles', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users');
@@ -120,7 +119,6 @@ app.get('/profiles', async (req, res) => {
   }
 });
 
-// Крайна точка за добавяне на нов профил
 app.post('/profiles', async (req, res) => {
   const { name, goal, diet_plan } = req.body;
   try {
@@ -135,75 +133,100 @@ app.post('/profiles', async (req, res) => {
   }
 });
 
-// Крайна точка за съхранение на отговорите от въпросника
-app.post('/questionnaire', async (req, res) => {
-  const { user_id, responses } = req.body;
+// Актуализиране на профил
+app.put('/profiles/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, goal, diet_plan } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO questionnaire_responses (user_id, responses) VALUES ($1, $2) RETURNING *',
-      [user_id, responses]
+      'UPDATE users SET name = $1, goal = $2, diet_plan = $3 WHERE id = $4 RETURNING *',
+      [name, goal, diet_plan, id]
     );
-    res.status(201).json(result.rows[0]);
+    res.json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при съхранение на отговорите от въпросника:", err);
-    res.status(500).send("Грешка при съхранение на отговорите от въпросника.");
+    console.error("Грешка при актуализиране на профила:", err);
+    res.status(500).send("Грешка при актуализиране на профила.");
   }
 });
 
-// Крайна точка за генериране на препоръки
-app.post('/recommendations', async (req, res) => {
-  const { user_id, recommendations } = req.body;
+// Изтриване на профил
+app.delete('/profiles/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const result = await pool.query(
-      'INSERT INTO recommendations (user_id, recommendations) VALUES ($1, $2) RETURNING *',
-      [user_id, recommendations]
-    );
-    res.status(201).json(result.rows[0]);
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
+    res.status(204).send();
   } catch (err) {
-    console.error("Грешка при добавяне на препоръки:", err);
-    res.status(500).send("Грешка при добавяне на препоръки.");
+    console.error("Грешка при изтриване на профила:", err);
+    res.status(500).send("Грешка при изтриване на профила.");
   }
 });
 
-// Крайна точка за извличане на статии
-app.get('/articles', async (req, res) => {
+// Управление на продукти за онлайн магазин
+app.get('/products', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM articles');
+    const result = await pool.query('SELECT * FROM products');
     res.json(result.rows);
   } catch (err) {
-    console.error("Грешка при извличане на статиите:", err);
-    res.status(500).send("Грешка при извличане на статиите.");
+    console.error("Грешка при извличане на продукти:", err);
+    res.status(500).send("Грешка при извличане на продукти.");
   }
 });
 
-// Крайна точка за добавяне на нова статия
-app.post('/articles', async (req, res) => {
-  const { title, content } = req.body;
+app.post('/products', async (req, res) => {
+  const { name, description, price, stock, image_url } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO articles (title, content) VALUES ($1, $2) RETURNING *',
-      [title, content]
+      'INSERT INTO products (name, description, price, stock, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [name, description, price, stock, image_url]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при добавяне на нова статия:", err);
-    res.status(500).send("Грешка при добавяне на нова статия.");
+    console.error("Грешка при добавяне на продукт:", err);
+    res.status(500).send("Грешка при добавяне на продукт.");
   }
 });
 
-// Крайна точка за свързаност с PostgreSQL (тестова крайна точка)
-app.get('/db', async (req, res) => {
+// Актуализиране на продукт
+app.put('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, stock, image_url } = req.body;
   try {
-    const client = await pool.connect();
-    const result = await client.query('SELECT * FROM users');
-    res.json(result.rows);
-    client.release();
+    const result = await pool.query(
+      'UPDATE products SET name = $1, description = $2, price = $3, stock = $4, image_url = $5 WHERE id = $6 RETURNING *',
+      [name, description, price, stock, image_url, id]
+    );
+    res.json(result.rows[0]);
   } catch (err) {
-    console.error("Грешка при свързаност с базата данни:", err);
-    res.status(500).send("Грешка при свързаност с базата данни.");
+    console.error("Грешка при актуализиране на продукт:", err);
+    res.status(500).send("Грешка при актуализиране на продукт.");
   }
 });
 
+// Изтриване на продукт
+app.delete('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query('DELETE FROM products WHERE id = $1', [id]);
+    res.status(204).send();
+  } catch (err) {
+    console.error("Грешка при изтриване на продукт:", err);
+    res.status(500).send("Грешка при изтриване на продукт.");
+  }
+});
+
+// Пример за извличане на конкретен продукт
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Грешка при извличане на продукта:", err);
+    res.status(500).send("Грешка при извличане на продукта.");
+  }
+});
+
+// Старт на сървъра
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
