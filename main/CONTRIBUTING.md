@@ -1,0 +1,1 @@
+This contributing guide describes the requirements and processes for contributing to this project. Please follow these guidelines before submitting any changes.
