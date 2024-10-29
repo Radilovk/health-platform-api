@@ -1,1 +1,1 @@
-Some initial project information and setup guidelines. This project includes functionalities for authentication, data handling, and client interface development with an intuitive UI. The README.md provides an overview of the project structure, describing the project's main features.
+Initial setup instructions to setup and configure project. Created by GitB, heroku admin.
