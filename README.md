@@ -1,1 +1,1 @@
-# health-platform-api
+This is the initial commit to the project. This repository contains a The allowing a more structured code base and clear commit messages.
