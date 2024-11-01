@@ -56,4 +56,17 @@ img {
 
 ..progress-bar.before {
   background-color: #457B9D;
-  width: 0%; .style color    }
+  width: 60%;
+  margin-top: 20px;
+}
+
+.gradient-bkg {
+  background: linear-gradient(20deg, #f8f9fa, #d7e8f3);
+}
+
+.glad-bar center {
+  margin-top: 20px;
+  text-align: left;
+}
+.
+.style text,         
