@@ -9,19 +9,39 @@
 <nav class="navbar">
     <div class="container">
         <h1>Login to your profile</h1>
-        <p class="lead">Enter your information to continue.</p>
+        <p>Enter your information to continue.</p>
     </div>
 </nav>
 
-<section class="login-form">
-    <form action="" method="post">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Your Email" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Your Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <button class="google-login">Login with Google</button>
-</section>
+    <div class="container">
+        <form id="loginForm" onsubmit="login(event)">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@email.com" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Your Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <button class="google-login">Login with Google</button>
+    </div>
+
+<script src="firebaseConfig.js"></script>
+<!-- Firebase SKD to handle authentication -->
+<script id="firebase-app" src="https://gredit.firebaseapp.com/js/firebase.js" cors="error"></script>
+<script>
+// firebase login logic
+async function login(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredentials = await firebase.auth().signInWithEmail(email, password);
+    console.log("Logged in successfully: ", userCredentials);
+  } catch (err) {
+    console.error("Login failed: ", err);
+  }
+}
+</script>
+</script>
 </body>
 </html>
