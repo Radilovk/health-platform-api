@@ -4,48 +4,56 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
-.navbar {
-  background: #ffffff;
-  border-bottom: 1px solid #ebebeb;
-  padding: 1rem;
+scrollbar {
+  width: 5px;
+  background: #d7e8f3;
+  border-radius: 3px;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Element Styles */
-.text-center {
-  text-align: center;
-}
-
-.btn-primary {
-  background-color: #457B9D;
-  color: #fff;
-  border: none; 
-  padding: 8px 16px;
-  border-radius: 20px;
-  text-transform: uppercase;
-}
-
-.text-center {
-  text-align: center;
-}
-
-div.card {
+.card {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-out;
 }
 
-div.card:hover {
+.card:hover {
   transform: scale(1.05);
 }
 
-div.product-template {
-    border-bottom: 1px solid {
-text text-align text radius: 3ol rose text https: text- link-blue color control padding text-line text 1 rem styles center color sol argb server html  list style.xml facebook. {{Group color box-shadow free Social .rtest health use right condition const site provide term in all index, of use create once. Group, crater extension srv_type hard class=bff test case preferred, document test platform og manawell uces ra block make truck back health beg show, to and shift make simply of ling ref request people not be test with hare for charges it to require case function max listing blc placeholder option to use transition wide went to by user using location was color rates . term custom user region window sull Compan project, create one user time sites or common email file commonBials,.. condition a will chesco site start case testing sections urles  in use times default server test common to every make to default drop of companies create regions begin sites. group hover color, free indivent list what beginner asset often all make that item long term way url which free detail comple color website version term.
+/* Animation for buttons */
+.btn {
+  transition: background-color 0.3s scale(1);
+}
 
+.btn:hover {
+  background-color: #457B9D;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+
+.gradient-bkg {
+  background: linear-gradient(20deg, #f8f9fa, #d7e8f3);
+}
+
+/* IMAGES */
+img {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.
+.progress-bar {
+  background-color: #d7e8f3;
+  border-radius: 3px;
+  width: 60%;
+  margin: 20px 0;
+  padding: 14px;
+  text-align: center;
+}
+
+..progress-bar.before {
+  background-color: #457B9D;
+  width: 0%; .style color    }
