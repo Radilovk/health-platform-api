@@ -23,39 +23,26 @@
         <h2>Progress</h2>
         <div id="progressData"></div>
     </div>
+<!-- Karousel for recommendations -->
+<div class="carousel carousel-animated" id="recommendationsCarousel">
+  <div class="carousel-item">Drink more ared water!</div>
+  <div class="carousel-item">Eat more protein</div>
+  <div class="carousel-item">Start with a healthier diet</div>
+</div>
+<!-- Progressive bar for progress data -->
+<h2>Health Progress</h2>
+<div class="progress-bar">
+  <img src="example_progress.jpg" alt="Progress">
+  <p class="health-progress">Health goal: 700 cal</p>
+</div>
 </body>
 
 <script src="scripts.js"></script>
 <script>
-async function fetchDashboardData() {
-    try {
-        const profileResponse = await fetch('/api/profile');
-        const recommendationsResponse = await fetch('/api/recommendations');
-        const progressResponse = await fetch('/api/progress');
-
-        // Display Profile Information
-        const profile = await profileResponse.json();
-        document.getElementById('profileData').innerHTML =
-            `<h3>Name: ${profile.name}</h3>
-            <h3>Age: ${profile.age}</h3>
-            <h3>Current WeGCPI: ${profile.wegcpi} cal</h3>`
-
-        // Display Recommendations
-        const recommendations = await recommendationsResponse.json();
-        let str = '';
-        recommendations.forEach((rec) => {
-            str += `<p>${rec.content}</p>`;
-        });
-        document.getElementById('recommendations').innerHTML = str;
-
-        // Display Progress
-        const progress = await progressResponse.json();
-        document.getElementById('progressData').innerHTML =
-            `<p>WeGCPI plan: ${progress.wegcpi} cal</p>`;
-    } catch (e) {
-        console.error("Error fetching dashboard data", e);
-    }
+async function demoCarousel() {
+  let carouselItems = document.getElementById('recommendationsCarousel');
+  carouselItems.style.display = 'block';
 }
-fetchDashboardData();
+demoCarousel();
 </script>
 </html>
