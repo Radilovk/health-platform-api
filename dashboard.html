@@ -15,22 +15,47 @@
 
     <div class="container">
         <h2>Profile</h2>
-        <p>We will display all your health data here.</p>
-        <div>
-            <h3>Name: John Doe</h3>
-            <h3>Age: 30</h3>
-            <h3>Current WeGCPI: 2000 cal</h3>
-        </div>
+        <div id="profileData"></div>
 
-        <h2>Current Plan</h2>
-        <p class="lead">Portion of current diet plan with details.</p>
-        <ul>
-            <li>Calories Allowed: 500</li>
-            <li>Carbohydrates: 20\n</li>
-            <li>Protein: 200 g/day</li>
-        </ul>
+        <h2>Recommendations</h2>
+        <div id="recommendations"></div>
+
+        <h2>Progress</h2>
+        <div id="progressData"></div>
     </div>
-</div>
-</section>
 </body>
+
+<script src="scripts.js"></script>
+<script>
+async function fetchDashboardData() {
+    try {
+        const profileResponse = await fetch('/api/profile');
+        const recommendationsResponse = await fetch('/api/recommendations');
+        const progressResponse = await fetch('/api/progress');
+
+        // Display Profile Information
+        const profile = await profileResponse.json();
+        document.getElementById('profileData').innerHTML =
+            `<h3>Name: ${profile.name}</h3>
+            <h3>Age: ${profile.age}</h3>
+            <h3>Current WeGCPI: ${profile.wegcpi} cal</h3>`
+
+        // Display Recommendations
+        const recommendations = await recommendationsResponse.json();
+        let str = '';
+        recommendations.forEach((rec) => {
+            str += `<p>${rec.content}</p>`;
+        });
+        document.getElementById('recommendations').innerHTML = str;
+
+        // Display Progress
+        const progress = await progressResponse.json();
+        document.getElementById('progressData').innerHTML =
+            `<p>WeGCPI plan: ${progress.wegcpi} cal</p>`;
+    } catch (e) {
+        console.error("Error fetching dashboard data", e);
+    }
+}
+fetchDashboardData();
+</script>
 </html>
