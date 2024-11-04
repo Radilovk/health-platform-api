@@ -1,13 +1,12 @@
 {
-  "name": "health-platform-api",
+  "name": "health-platform-frontend",
   "version": "1.0.0",
-  "description": "Health Platform API",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "serve -s build",
+    "build": "react-scripts build"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "serve": "^14.0.1",
+    "react-scripts": "latest"
   }
 }
