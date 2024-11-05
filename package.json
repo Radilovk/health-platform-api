@@ -10,10 +10,9 @@
     "ntm": "6.x"
   },
   "dependencies": {
-    "serve": "^14.0.1",
-    "react-scripts": "latest",
-    "react": "^17.0",
-    "react-dom": "^17.0",
-    "react-scripts": "Latest"
-  }
+    "serve": "14.0.1",
+    "react-scripts": "4.0.3",
+    "react": "17.0",
+    "react-dom": "17.0"
+}
 }
