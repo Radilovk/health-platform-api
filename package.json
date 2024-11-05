@@ -13,9 +13,9 @@
     "node-fetch": "2.20.0",
     "node-mailer": "6.5.0",
     "router-dom": "6.6.0",
-    "cors.js": "3.10.5"
+    "cors",
   },
   "engines": {
-    "node": "16.16.0"
+    "nodedev": "16.16.0"
   }
 }
