@@ -5,6 +5,7 @@ function App() {
       <div id="app-container" className="app-container">
         <h1>Welcome to The health platform</h1>
       </div>
-    );\n}
+    );
+}
 
 export default App;
