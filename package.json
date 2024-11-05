@@ -14,6 +14,6 @@
     "react-scripts": "4.0.3",
     "react": "17.0",
     "react-dom": "17.0",
-    "@babel/core": "17.16.0"
+    "@babel/core": "7.16.0"
 }
 }
