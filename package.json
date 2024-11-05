@@ -13,7 +13,7 @@
     "node-fetch": "2.20.0",
     "node-mailer": "6.5.0",
     "router-dom": "6.6.0",
-    "cors": "2.13.2"
+    "cors": "2.13.3"
   },
   "engines": {
     "node": "16.16.0"
