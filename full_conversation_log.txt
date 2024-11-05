@@ -1,0 +1,13 @@
+[BEGIN SUMPLARY OF THE CONVERSATION LOG]
+This file is to document the full history of the conversation with this account, from the start to the present moment. Each conversation log segment includes both user requests, responses, and all steps and actions taken to address the project scope. The file is designed to be a useful reference for the entire progress of this project.
+
+WE have been constantly working to address deployment, authentication, file management in GitHub. Specific steps and tasks are documented throughout. Therefore, this file presents a structured view of our project narrative.
+
+TUBE: Starting with conversation on project implementation, given a brief view of the core approach and initial aims of the site. The narrative structures the reasoning includes:  
+  - First step: Setting up files and structure in the github project.
+  - Testing the deployment using the Rest API and checking the integrations.
+  - Creating and updating files, debugging code including file creation, syntax, data entry for progress.
+
+This structure enables us in this project to keep a log of progress. The file will include all past actions and individual necessary additions. It will serve to assist in recalling and providing a continuous flow of work(.
+
+[END SUMPLARY PO
