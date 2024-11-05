@@ -1,0 +1,6 @@
+/* Basic style reset with margins for application structure testing */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
