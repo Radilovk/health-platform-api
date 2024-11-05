@@ -8,17 +8,17 @@ import Progress from './components/Progress';
 function App() {
   return (
     <Browser>
-      <Div id="app-container" className="app-container">
-        <H2>Welcome to The Health Platform</H2>
-        <Routes.>
-          <Route path="/" lement="Home" component={Home} />
-          <Route path="/profile" lement="Profile" component={Profile} />
-          <Route path="/plan" lement="Plan" component={Plan} />
-          <Route path="/progress" lement="Progress" component={Progress} />
-        </Routes.>
-      </Div>
-    </Browser.>
-);
+      <div id="app-container" className="app-container">
+        <h2>Welcome to The Health Platform</h2>
+        <Routes aria-label="Main Routes">
+          <Route path="/" element={<Home } />
+          <Route path="/profile" element={<Profile } />
+          <Route path="/plan" element={< Plan } />
+          <Route path="/progress" element={<Progress } />
+        </Routes>
+      </div>
+    </Browser>
+  );
 }
 
 export default App;
