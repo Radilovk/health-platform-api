@@ -5,6 +5,10 @@
     "start": "serve -s build",
     "build": "react-scripts build"
   },
+  "engines": {
+    "node": "14.x",
+    "ntm": "6.x"
+  },
   "dependencies": {
     "serve": "^14.0.1",
     "react-scripts": "latest"
