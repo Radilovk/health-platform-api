@@ -1,2 +1,1 @@
-Started the process of restoring the project to the last working version where all functionalities were confirmed to be inactive.
- Detailed and commented the steps from restore to testing.
+Starting the restore to the previous working version as per user request. All configurations are aligned with the previously stable settings. Project is now ready for direct performance testing on Heroku. This action assures all compatibilities and uses Node.js v14.x.
