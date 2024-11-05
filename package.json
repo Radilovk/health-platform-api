@@ -1,21 +1,21 @@
 {
-  "name": "health-platform-frontend",
+  "name": "health-platform-api",
   "version": "1.0.0",
+  "description": "A well-nessed frontend for the health platform api",
   "scripts": {
-    "start": "serve -s build",
-    "build": "react-scripts build"
+    "start": "node server.js",
+    "test": "echo \"Errors test script\""
+  },
+  "author": "OpenAI Test",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.3",
+    "node-fetch": "2.20.0",
+    "node-mailer": "6.5.0",
+    "router-dom": "6.6.0",
+    "cors.js": "3.10.5"
   },
   "engines": {
-    "node": "14.x",
-    "ntm": "6.x"
-  },
-  "dependencies": {
-    "serve": "14.2.0",
-    "react-scripts": "4.0.3",
-    "react": "17.0",
-    "react-dom": "17.1.0",
-    "@babel/core": "7.16.0",
-    "@babel/plugin-proposal-private-property-in-object": '7.16.0',
-    "react-router-dom": "6.4.0"
-}
+    "node": "16.10.2"
+  }
 }
