@@ -12,9 +12,9 @@ function App() {
         <h2>Welcome to The Health Platform</h2>
         <Routes aria-label="Main Routes">
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={Profile } />
-          <Route path="/plan" element={Plan } />
-          <Route path="/progress" element={Progress } />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/plan" element={<Plan />} />
+          <Route path="/progress" element={<Progress />} />
         </Routes>
       </div>
     </BrowserRouter>
