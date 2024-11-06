@@ -13,11 +13,11 @@
     "node-fetch": "2.20.0",
     "node-mailer": "6.5.0",
     "router-dom": "6.6.0",
-    "cors": "2.13.3",
+    "cors": "2.8.12",
     "@babel/plugin-proposal-private-property-in-object": "17.16.0",
     "core-js": "3.39.0"
   },
   "engines": {
-    "node": "14.21.3" 
+    "node": "16.16.0"
   }
 }
