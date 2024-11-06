@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Progress = () => (
-    <div>
-      <h1>Progress Section</h1>
-      <p>This page shows your progress on your health journey.</p>
-    </div>
-const Export default Progress;
+function Progress() {
+    return (
+        <div id="progress-container" className="progress-container">
+            <h2>Your Progress</h2>
+            <p>Track your health and fitness progress over time.</p>
+        </div>
+    );
+}
+
+export default Progress;
