@@ -1,1 +1,1 @@
-web: serve -s public
+web: node -r start /src/index.js
