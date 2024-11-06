@@ -1,0 +1,1 @@
+This file details the full process for deploying and troubleshooting a Node.js app on Heroku, with specific steps to stabilize builds. If you encounter any errors, consult the relevant Heroku documentation links. Be sure to have the necessary dependencies set up in package.json and install specific versions to maintain the compatibility of the app.
