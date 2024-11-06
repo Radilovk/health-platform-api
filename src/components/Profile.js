@@ -1,10 +1,15 @@
 import React from 'react';
 
-const Profile = () => (
-    <div>
-      <h1>Profile Section</h1>
-      <p>This is your profile page with personalized information and settings.</p>
-    </div>
-);
+const Profile = () => {
+    const userName = "User's Name";  // Initialize const variables properly
+    const userGoal = "User's goal for health and fitness";
 
-const Export default Profile;
+    return (
+        <div id="profile-container" className="profile-container">
+            <h2>{userName}'s Profile</h2>
+            <p>Goal: {userGoal}</p>
+        </div>
+    );
+};
+
+export default Profile;
