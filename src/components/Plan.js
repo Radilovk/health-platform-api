@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Plan = () => (
-    <div>
-      <h1>Plan Section</h1>
-      <p>This page displays your current diet plan.</p>
-    </div>
-);
+const Plan = () => {
+    const planDetails = "Your personalized health plan details go here.";
 
-const Export default Plan;
+    return (
+        <div id="plan-container" className="plan-container">
+            <h2>Your Health Plan</h2>
+            <p>{planDetails}</p>
+        </div>
+    );
+};
+
+export default Plan;
