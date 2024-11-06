@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Home = () => (
-    <div>
-      <h1>Home Section</h1>
-      <p>Welcome to the health platform. Please select an option from the menu to continue.</p>
-    </div>
-const Export default Home;
+function Home() {
+    return (
+        <div id="home-container" className="home-container">
+            <h1>Welcome to the Health Platform</h1>
+            <p>Your journey to a healthier life starts here!</p>
+        </div>
+    );
+}
+
+export default Home;
