@@ -14,7 +14,7 @@
     "node-mailer": "6.5.0",
     "router-dom": "6.6.0",
     "cors": "2.8.12",
-    "@babel/plugin-proposal-private-property-in-object": "17.16.0",
+    "@babel/plugin-proposal-private-property-in-object": '7.16.0',
     "core-js": "3.39.0"
   },
   "engines": {
