@@ -1,15 +1,13 @@
 import React from 'react';
 
-const Profile = () => {
-    const userName = "User's Name";  // Initialize const variables properly
-    const userGoal = "User's goal for health and fitness";
-
+function Profile() {
+    const userName = "User Name";
     return (
         <div id="profile-container" className="profile-container">
-            <h2>{userName}'s Profile</h2>
-            <p>Goal: {userGoal}</p>
+            <h2>Profile</h2>
+            <p>Welcome, {userName}! Here is your profile information.</p>
         </div>
     );
-};
+}
 
 export default Profile;
