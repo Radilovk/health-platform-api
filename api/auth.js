@@ -1,0 +1,1 @@
+// Auth controller for Firebase authentication
