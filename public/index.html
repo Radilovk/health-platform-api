@@ -1,157 +1,23 @@
+
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Здравословна Платформа</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Health Platform - Welcome</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
-    <a class="navbar-brand font-weight-bold text-primary" href="#">Здравословна Платформа</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Начало</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Услуги</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Блог</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Контакти</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<!-- Hero Section -->
-<section class="hero text-center d-flex align-items-center justify-content-center">
-    <div class="text-center hero-content">
-        <h1 class="display-4 font-weight-bold">Вашето Пътуване към Здравето</h1>
-        <p class="lead">Експертни съвети, програми и здравословни рецепти</p>
-        <a href="#" class="btn btn-primary btn-lg mt-3 btn-cta">Започнете сега</a>
-    </div>
-</section>
-
-<!-- Featured Topics Section -->
-<div class="container mt-5">
-    <h2 class="text-center font-weight-bold">Популярни Теми</h2>
-    <div class="row mt-4">
-        <div class="col-md-3 mb-4">
-            <div class="topic-card shadow-sm text-center p-4 rounded bg-topic-1">
-                <i class="fas fa-heartbeat fa-2x mb-3 text-accent"></i>
-                <h5>Кардио Здраве</h5>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="topic-card shadow-sm text-center p-4 rounded bg-topic-2">
-                <i class="fas fa-apple-alt fa-2x mb-3 text-accent"></i>
-                <h5>Хранене</h5>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="topic-card shadow-sm text-center p-4 rounded bg-topic-3">
-                <i class="fas fa-brain fa-2x mb-3 text-accent"></i>
-                <h5>Ментално Здраве</h5>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="topic-card shadow-sm text-center p-4 rounded bg-topic-4">
-                <i class="fas fa-leaf fa-2x mb-3 text-accent"></i>
-                <h5>Здравословен Живот</h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-4">
-    <div class="container text-center">
-        <p>&copy; 2024 Здравословна Платформа. Всички права запазени.</p>
-    </div>
-</footer>
-
-<!-- Bootstrap and jQuery Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<style>
-    /* Font and Body Styling */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-    }
-
-    /* Navbar */
-    .navbar {
-        padding: 1rem;
-        background: #ffffff;
-        border-bottom: 1px solid #ebebeb;
-    }
-
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(135deg, #A8DADC, #F1FAEE);
-        height: 70vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: #1D3557;
-    }
-    .hero h1 {
-        font-size: 2.5rem;
-        color: #1D3557;
-        margin-bottom: 0.5rem;
-    }
-    .btn-cta {
-        padding: 0.75rem 1.5rem;
-        font-weight: bold;
-        border-radius: 30px;
-        background-color: #457B9D;
-        border: none;
-        color: #fff;
-        transition: background 0.3s ease;
-    }
-    .btn-cta:hover {
-        background-color: #F4A261;
-    }
-
-    /* Topic Cards */
-    .topic-card {
-        transition: transform 0.3s ease-in-out;
-        cursor: pointer;
-        color: #1D3557;
-    }
-    .topic-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-    }
-    .bg-topic-1 { background-color: #A8DADC; }
-    .bg-topic-2 { background-color: #D7E8F3; }
-    .bg-topic-3 { background-color: #F4E5C3; }
-    .bg-topic-4 { background-color: #E9F2E9; }
-    .text-accent { color: #457B9D; }
-
-    /* Footer Styling */
-    footer {
-        background-color: #333;
-        color: #fff;
-    }
-</style>
-</body>
-</html>
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to Health Platform</h1>
+        <p>Your partner in achieving a healthier lifestyle</p>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
