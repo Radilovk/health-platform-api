@@ -1,3 +1,13 @@
 
-const { DataTypes } = require('sequelize');
-const db = require('../config/
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  goals: {
+    type: DataTypes.JSON,
+    allowNull: true,
+  }
+});
+
+module.exports = User;
