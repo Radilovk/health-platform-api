@@ -1,1 +1,3 @@
-// Product controller for managing store products and purchases
+
+const express = require('express');
+const router = express.Router();
