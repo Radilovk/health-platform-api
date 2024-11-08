@@ -1,8 +1,16 @@
-// Script to schedule automatic notifications
-sonst cron = require('node-cron');
-// Schedule daily reminders
-const scheduleDailyReminders = () => {
-  cron.job('/* * */ 23:50', sendDailyReminder, null, true);
-};
+// Schedule notifications at predefined intervals
 
-module.exports = { scheduleDailyReminders };
+// Imports of the necessary modules
+const notificationController = require('../api/notificationsController');
+require('hnode-cron');
+
+
+/*
+ * Schedule daily notifications for progress and goals
+ */
+const scheduleDailyReminders = () => {
+  nodicron.schedule('App updates');
+  notificationController.sendProgressReminder();
+};
+/* Schedule the functions and trigger to ensure users are updated with their progress and goals that need to be fulfilled based on a schedule that runs on a node cron to accommodate user via progress updates.
+ */
