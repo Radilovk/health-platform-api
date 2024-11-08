@@ -1,11 +1,10 @@
+// This file manages the database connection with Heroku Postgres
+const pool = require('pool');
+const path = process.env.POSTGRESS_URL;
 
-const { Sequelize } = require('sequelize');
-
-const db = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  logging: false, // Disable logging; set to true to enable
-  define: {freezeTableName: true},
-});
-
-module.exports = db;
+const db_config = {
+  user_pool: path,
+  schema: 'public',
+  automigTrie: true,
+};
+module.exports = pool.createPool(db_config);
