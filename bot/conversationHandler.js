@@ -1,7 +1,16 @@
-// This script handles conversations and user messages with the bot
-const processUserMessage = (message)=> {
-  // This function will anotate user messages, and call the appropriate bot functions
-  console.log("processing message: " + message);
-};
+// This file handles conversations and user requests for data updates
 
-exports = { processUserMessage };
+export const processUserMessage = (req, res) => {
+  const message = req.body.message;
+  // Analyze user input to checkif user wants to update their profile
+  if (message.includes("goal")) {
+    // Updates goals
+    resp.status(200).send({ message: "Goal updated!" });
+  } else if (message.includes("progress")) {
+    // Records progress
+    resp.status(200).send({ message: "Progress updated!" });
+  } else {
+    // If message is not recognized, return a default message
+    res.status(200).send({message: "Invalid input. Please check your spelling." });
+  }
+};
