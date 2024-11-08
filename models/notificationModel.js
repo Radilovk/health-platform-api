@@ -1,10 +1,11 @@
-// Model to store notification preferences and settings
-const pool = require('pool');
+// Model for notification preferences of users
 
-const notificationModel = pool.define('notifications', {
-  userId: { type: String, required: true },
-  type: { type: String, enum: ['progress', 'goal', 'recommendation'], default: 'progress' },
-  frequency: {type: String, enum: ['daily', 'weekly', 'monthly'], default: 'daily' }
+const sequelize = require('sequelize');
+
+const NotificationModel = sequelize.define('Notifications', {
+  userId: { type: sequelize.Int, reference: 'User' },
+  type: {type: sequelize.String, enum: ['Progress', 'Goal'] },
+  frequency: { type: sequelize.String, default: 'daily' }
 });
 
 module.exports = notificationModel;
