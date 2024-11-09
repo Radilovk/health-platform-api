@@ -1,0 +1,20 @@
+/* Basic styles for the health platform */
+
+/* Main container styles */
+margin: 0; padding: 0; background-color: #fff;
+
+/** Header and navigation */
+header {
+    background-color: #333;
+    padding: 10px 0;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    font-size: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Rest of the global styles */
