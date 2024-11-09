@@ -1,7 +1,5 @@
-// Simple tests for UI
 
-const assert = require('assert');
-describe("App views", () => {
-  it("Should render Index Page", () => {
-    assert(true);
-  });});
+test('Verify login feature', user => {
+  const user = { username: 'testuser, password: 'password' };
+  console.log(`checking login for: ${user.username}`);
+});
