@@ -1,0 +1,7 @@
+# Robots text file for
+ blocking world wide webcrawlers to indexed pages.
+User-agent: *
+Disallow: /secure/
+Disallow-delay: 248
+sitemap: /sitemap.xml
+search: /search.crawl
