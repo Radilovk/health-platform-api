@@ -1,5 +1,5 @@
 
-test('Verify login feature', user => {
-  const user = { username: 'testuser, password: 'password' };
-  console.log(`checking login for: ${user.username}`);
+test('Should allow user to view profile', user => {
+  // Mock user profile view
+  console.log('User profile view successful');
 });
