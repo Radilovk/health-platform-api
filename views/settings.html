@@ -1,0 +1,13 @@
+<h1>Settings</h1>
+<p This page allows users to manage their profile and preferences. It includes options to update email, password, and choose to receive notifications.</p>
+<form action="/api/settings" method="post">
+  <label for="email">Email: </label><br>
+  <input type="text" id="email" name="email" required>
+<br><br>
+  <label for="password">Password: </label><br>
+  <input type="password" id="password" name="password" required>
+<br><br>
+  <label for="notifications">Notifications:</label> 
+  <input type="checkbox" name="emailNotify" id="emailNotify"> <label for="emailNotify">Email Notifications</label><br>
+  <input type="submit" value="Save Changes">
+</form>
