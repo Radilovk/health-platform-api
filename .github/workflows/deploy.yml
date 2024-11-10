@@ -1,0 +1,17 @@
+name: "Health Platform Deployment"
+on push:
+  branch: main
+  runs:
+    - type: node-js
+      run: node /src/server.js
+
+  # Set up the Job for deployment
+  workflows:
+  - name: Build and Deploy
+    runs:
+      - name: Set up Node for basic operations
+        run: npm install
+      - name: "Run tests"
+        run: 'npm run test'
+      - name: "Run build"
+        run: 'npm run build'
