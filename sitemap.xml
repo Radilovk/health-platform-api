@@ -1,0 +1,18 @@
+<urlset>
+  <url>
+	<location>https://yoursite.com/index</location>
+	<changefreq>Daily</changefreq>
+</url>
+  <url>
+	<location>https://yoursite.com/services</location>
+	<changefreq>Weekly</changefreq>
+</url>
+  <url>
+	<location>https://yoursite.com/blog</location>
+	<changefreq>Weekly</changefreq>
+</url>
+  <url>
+	<location>https://yoursite.com/contact</location>
+	<changefreq>Weekly</changefreq>
+</url>
+</urlset>
