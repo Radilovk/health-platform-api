@@ -1,0 +1,13 @@
+name: "Health Platform Testing"
+on push:
+  branch: main
+  runs:
+    - type: node-js
+      run: node /test/uiTest.js
+  workflows:     
+  - name: Run and Validate Tests
+steps:         
+    - name: Setup Node for testing
+      run : npm install 
+    - name: Run Tests
+      null shell test command: npm test detailed testing commands or all covered
