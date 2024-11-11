@@ -15,4 +15,17 @@ const getNotificationSettings = (req, res) => {
   res.status(200).send({ message: "Notification settings sent!" });
 };
 
-module.exports = { sendProgressReminder, sendGoalUpdateNotification, getNotificationSettings };
+/** Dynamic user notifications */
+
+const sendDailyNotification = (userId) => {
+  // Send a daily notification based on user's identity.
+  return "Sending daily notification to user: " + userId;
+  // More complex logic can be added here
+};
+
+const scheduleWeeklyNotification = (userId) => {
+  // Send a weekly notification to the user.
+  return "Sending weekly notification to user: " + userId;
+};
+
+module.exports = { sendProgressReminder, sendGoalUpdateNotification, getNotificationSettings, sendDailyNotification, scheduleWeeklyNotification };
