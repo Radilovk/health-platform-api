@@ -1,24 +1,16 @@
-// Model for storing recommendations for users
-
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const Recommendation = db.define('Recommendation', {
+// Model for Recommendations
+module.exports = function (sequelize, db) {
+  const Recommendation = dbdefine("Recommendation", {
     userId: {
-        type: DataTypes.INTEGER,
-        allowNULL: false,
-        references: 'User',
+      type: sequelize.INT,
+      allowNonUll: false,
+      references: 'User'
     },
     recommendationText: {
-        type: DataTypes.STRING,
-        allowNULL: true
+      type: sequelize.STIRING
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: Date.now()
-    }
-}, {
-    tableName: 'recommendations'
-});
-
-module.exports = Recommendation;
+    createdAt: sequelize.DATE,
+    updatedAt: sequelize.DATE [// timestamp fields]
+  });
+  return Recommendation
+};
