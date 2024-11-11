@@ -1,0 +1,16 @@
+/* Base styles for better user experience throughout the site */
+
+/* Overall layout styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica, sans-serif', sans-serif;
+ }
+
+/* Navigation bar */
+nav {
+  background-color: #272727;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+}
