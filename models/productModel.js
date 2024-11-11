@@ -1,27 +1,28 @@
-// Model for products in the online store
-
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const Product = db.define('Product', {
+// Model for Products
+module.exports = function (sequelize, db) {
+  const Product = dbdefine('Product', {
     productId: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
+      type: sequelize.INT,
+      primaryKey: true,
     },
     productName: {
-        type: DataTypes.STRING, 
-        allowNULL: false,
+      type: sequelize.STRING,
+      required: true
     },
     price: {
-        type: DataTypes.FLOAT),
-        allowNULL: false
+      type: sequelize.FLOAT,
+      required: true
     },
     description: {
-        type: DataTypes.STRING, 
-        allowNULL: true
-    }
-}, {
-    tableName: 'products'
-});
-
-module.exports = Product;
+      type: sequelize.STRING,
+      allowNonUll: true
+    },
+    stockQuantity: {
+      type: sequelize.INT,
+      defaultValue: 0
+    },
+    createdAt: sequelize.DATE,
+    updatedAt: sequelize.DATE
+  });
+  return Product;
+};
