@@ -7,6 +7,12 @@ const firebaseConfig = {
   appId: "your-app-app-id",
   storageBucket: "your-storage-bucket",
   messagingSenderId: "your-messender-id",
+  authState: true,
+  databaseURL: "your-database-url",
+  projectId: "your-firebase-project-id-new",
+  storageBucket: "your-storage-bucket-new",
+  appId: "your-app-app-id-new",
+  messagingToken: "YourMessagingToken"
 };
 
 firebase.init(firebaseConfig);
