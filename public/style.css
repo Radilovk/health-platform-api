@@ -40,3 +40,36 @@ button {
 button:hover {
   background-color: #3a7d19;
 }
+/* Additional styles for user interface elements */
+
+/* Styles for navigation and header */
+header {
+  background-color: #2b4cf7;
+  padding: 10px;
+  color: #fff;
+}
+
+logo {
+  height: 40px;
+  width: auto;
+}
+
+/* Styles for the footer links and social media */
+footer {
+  background-color: #181818;
+  padding: 5px 14px;
+  color: #eeeeee;
+}
+
+/* Button styles */
+button {
+  background-color: #5a5bab;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+botton:hover {
+  background-color: #484b00;
+}
