@@ -1,21 +1,22 @@
-// Model for Diet Plan  
-module.exports = function (sequelize, db) {
-  const DietPlan = dbdefine('DietPlan', {
+// Model to store diet plan information
+export function(Sequelize, MySql) {
+  return Sequelize.Model('dietPlan, {
     userId: {
-      type: sequelize.INT,
-      allowNonUll: false,
-      reperences: 'User'
+      type: Sequelize.INTEGER,
+      reference: 'Users',
+      allowNULL: false
     },
-    planName: {
-      type: sequelize.STRING,
-      allowNonUll: false,
-      validate: { not: null }
+    participants: {
+      type: Sequelize.JSON,// stores daily details
+      allowNULL: true
     },
-    planDetails: {
-      type: sequelize.JSON, allowNonUll: true
+    createdAt: {
+      type: Sequelize.DATE,
+      default: Sequelize.NOW
     },
-    createdAt: sequelize.DATE,
-    updatedAt: sequelize.DATE // Standard columns for timestamps
+    updatedAt: {
+      type: Sequelize.DATE,// tracking modification
+      default: Sequelize.NOW
+    }
   });
-  return DietPlan;
-};
+}
