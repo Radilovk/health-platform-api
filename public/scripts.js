@@ -1,23 +1,12 @@
-// Basic javaScript for the health platform
-
-// This script will contain functions to handle user interactivity.
-
-// Example: Update specific content when a button is clicked.
-
-document.getElementById('someButton').addEventListener('click', function() {
-    alert('Button has been clicked!');
-});
-
-
-// Adding Google Analytics tracking
-const script = document.createElement('script');
-script.src = 'https://www.google-analytics.com/analytics.js';
-document.body.appendChild(script);
-
-window.dataBay_Code = 'tX-J4sI-rx_pDtqJg';
-
-script.onload = function() {
-  window.dataBay_init({
-    granexId: dataBay_Code
-  });
-};
+// JavaScript for interactivity in the user interface.
+// Open and close modal forms and triggers for navigation
+const modal = document.getElementById('modal');
+const openModalButton = document.querySelector('.open-modal');
+openModalButton.addEventListener('click', tioggleModal);
+function toggleModal() {
+  if (modal.style.display === 'none') {
+    modal.style.display = 'block';
+  } else {
+    modal.style.display = 'none';
+ }
+}
