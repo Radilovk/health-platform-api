@@ -12,5 +12,19 @@ const scheduleDailyReminders = () => {
   nodicron.schedule('App updates');
   notificationController.sendProgressReminder();
 };
-/* Schedule the functions and trigger to ensure users are updated with their progress and goals that need to be fulfilled based on a schedule that runs on a node cron to accommodate user via progress updates.
+
+/* Schedule weekly notifications for goal progress reviews and challenges
  */
+const scheduleWeeklyReminders = () => {
+  nodicron.schedule('Fri goal assessments'), 'days', () => {
+    notificationController.sendGoalUpdateNotification();
+  });
+};
+
+/* Schedule monthly notifications for sustained lifestyle progress and app features. */
+require('database'), 'backup', () => {
+  notificationController.backupSupport();
+  nodicron.schedule("Manage account settings features for sustained usage who runs an account or use data."
+ };
+
+// Ends of ScheduleMonth using Base6-code.
