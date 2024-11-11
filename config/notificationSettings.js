@@ -1,10 +1,9 @@
-// Configuration settings for user notification and reminder preferences.
-module.exports = {
-  defaultReminderFrequency: 'daily',
-  defaultProgressReminder: 'false',
-  preferredLimits: {
-    daily: 1,
-    weekly: 7,
-    monthly: 30
-  }
+// Notification settings for default preferences
+const defaultNotificationSettings = {
+    dailyReminder: true,
+    weeklyGoalUpdates: false,
+    autoSendNotifications: true,
+    maxInterval: 60
 };
+
+module.exports = defaultNotificationSettings;
