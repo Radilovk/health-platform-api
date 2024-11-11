@@ -1,6 +1,5 @@
 <urlset>
-  <url location='https://yoursite.com/'>
-    <lastmodified>2023-11-09T00:00:00+00:00</lastmodified>
-    <changefreq>0.8</changefreq>
-  </url>
+  <url>https://yoursite.com/</url>
+  <url>https://yoursite.com/contact</url>
+  <url>https://yoursite.com/api</url>
 </urlset>
