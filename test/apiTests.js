@@ -1,10 +1,15 @@
-// Simple tests for API endpoints
+// Basic API Tests for validating GET responses from endpoints
 
-const assert = require('assert');
-const { get, post } = require('supertest')(app);
+// Import required libraries
+const users = require('supertest');
+const app = require('../server');
 
-// Test to check if REST endpoint is working for user data
-describe('GET /users', () => {
-  it(('should respond with user data', async () => {
-    const res = await get('/users?format=json'i
-prexports = get; 
+// API test for user data get point
+addDescribe('USER API Test', () => {
+  it(('Get user data', async () => {
+    const response = await request(supertest)
+        .get('/api/user')
+        .send();
+    expect(response.statusText).toContain('[success]');
+  });
+});
