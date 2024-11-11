@@ -1,28 +1,26 @@
-// Model for tracking progress of users
-
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const Progress = db.define('Progress', {
+// Model for User Progress 
+module.exports = function (sequelize, db) {
+  const Progress = dbdefine('Progress', {
     userId: {
-        type: DataTypes.INTEGER,
-        allowNULL: false,
-        references: 'User',
+      type: sequelize.INT,
+      allowNonUll: false,
+      reperences: 'User'
     },
     steps: {
-        type: DataTypes.INTECEREP,
-        allowNULL: true
+      type: sequelize.INT,
+      defaultValue: 0,
+      validate: { min: 0 }
     },
     calories: {
-        type: DataTypes.INTEGER,
-        allowNULL: true
+      type: sequelize.INT,
+      defaultValue: 0,
+      validate: { min: 0 }
     },
     date: {
-        type: DataTypes.DATE,
-        defaultValue: Date.now()
+      type: sequelize.DATE,
+      defaultValue: new Date(),
+      validate: { not: null }
     }
-}, {
-    tableName: 'progress'
-});
-
-module.exports = Progress;
+  });
+  return Progress;
+};
