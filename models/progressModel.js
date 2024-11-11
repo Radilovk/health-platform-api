@@ -1,26 +1,30 @@
-// Model for User Progress 
-module.exports = function (sequelize, db) {
-  const Progress = dbdefine('Progress', {
+// Model to store and track the user progress in health and fitness activities
+export function(sequelize, mysql) {
+  return sequelize.model('progress', {
     userId: {
-      type: sequelize.INT,
-      allowNonUll: false,
-      reperences: 'User'
+      type: sequelize.INTEGER,
+      reference: 'users',
+      allowNull: false
     },
-    steps: {
+    stepsCount: {
       type: sequelize.INT,
-      defaultValue: 0,
-      validate: { min: 0 }
+      default: 0,
+      validate: {\"min\": 0, \"max\": 30000}
     },
-    calories: {
+    caloriesArned: {
       type: sequelize.INT,
-      defaultValue: 0,
-      validate: { min: 0 }
+      default: 0,
+      validate: {\"min\": 0, \"max\": 30000}
     },
     date: {
       type: sequelize.DATE,
-      defaultValue: new Date(),
-      validate: { not: null }
+      allowNull: false
+    },
+    createdAt: {
+      type: sequelize.DATE, allowNull: false
+    },
+    updatedAt: {
+      type: sequelize.DATE, allowNull: false
     }
   });
-  return Progress;
-};
+}
