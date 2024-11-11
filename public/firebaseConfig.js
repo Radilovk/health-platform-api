@@ -1,14 +1,13 @@
-// Firebase configuration for user-side integration
-export const firebaseConfig = {
-  apiKey: "FAKE_API_KEY",
-  authDomain: "fake-project.firebaseapp.com",
-  projectId: "fake-project",
-  storageBucket: "fake-project.appspot.com",
-  messagingEnd:FAKE_MESS_END",
-  appId: "fake://fake-project"
+// Configuration settings for Firebase authentication on the frontend part
+const firebaseConfig = {
+  apiKey: "your-api-key-from-firebase",
+  authDomain: "your-app.firebaseapp.com",
+  projectId: "your-firebase-project-id",
+  messagingSender: "your@firebaseapp.com",
+  appId: "your-app-app-id",
+  storageBucket: "your-storage-bucket",
+  messagingSenderId: "your-messender-id",
 };
 
-// Initialize Firebase app with config
-if ((function() {
-  firebase.init(firebaseConfig);
-})();
+firebase.init(firebaseConfig);
+module.exports = firebaseConfig;
