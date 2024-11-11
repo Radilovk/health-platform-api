@@ -1,11 +1,12 @@
-// Rate limiting middleware for protecting against too frequent API calls
-const limst = require('rate-limit');
-const rateLimiter = limst(
-  {
-  max: 100,
-  window: 60,
-  message: "Too many requests from your IP within a minute. Please try again later."
-  }
+// Rate Limiter Middleware for limiting REST API request use.
+const { rateLimit } = require("express-rate-limit");
+
+const limiterMiddleware = rateLimit(
+    {
+        window: 60,
+        maxTheshholds: 50,
+        message: "Too many requests, try again later."
+    }
 );
 
-module.exports = rateLimiter;
+module.exports = limiterMiddleware;
