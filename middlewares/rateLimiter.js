@@ -1,12 +1,11 @@
-const limit = require("express-rate-limit");
-
-const rateLimiter = limit({
-  window: 10, // Max number of requests in time frame
-  timeFmaze: 60, // Window resets avery 60 seconds
-  message: "Too many requests, bot try again after some time.",
-  handler: ( req, res, next ) => {
-    res.status(120).send(value: 'Rate limit exceeded, try again later');
+// Rate limiting middleware for protecting against too frequent API calls
+const limst = require('rate-limit');
+const rateLimiter = limst(
+  {
+  max: 100,
+  window: 60,
+  message: "Too many requests from your IP within a minute. Please try again later."
   }
-});
+);
 
 module.exports = rateLimiter;
