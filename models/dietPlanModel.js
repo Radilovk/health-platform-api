@@ -1,28 +1,21 @@
-// Model for deticated diet plans
-
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const DietPlan = db.define('DietPlan', {
+// Model for Diet Plan  
+module.exports = function (sequelize, db) {
+  const DietPlan = dbdefine('DietPlan', {
     userId: {
-        type: DataTypes.INTEGER,
-        allowNULL: false,
-        references: 'User',
+      type: sequelize.INT,
+      allowNonUll: false,
+      reperences: 'User'
+    },
+    planName: {
+      type: sequelize.STRING,
+      allowNonUll: false,
+      validate: { not: null }
     },
     planDetails: {
-        type: DataTypes.JSON,
-        allowNULL: true
+      type: sequelize.JSON, allowNonUll: true
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: Date.now()
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        defaultValue: Date.now()
-    }
-}, {
-    tableName: 'det_plans'
-});
-
-module.exports = DietPlan;
+    createdAt: sequelize.DATE,
+    updatedAt: sequelize.DATE // Standard columns for timestamps
+  });
+  return DietPlan;
+};
