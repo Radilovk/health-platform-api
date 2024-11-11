@@ -1,7 +1,5 @@
-# Robots text file for
- blocking world wide webcrawlers to indexed pages.
-User-agent: *
-Disallow: /secure/
+# Robots text for SEO Optimization
+user-agent: * disallow: /
+Sitemap: /sitemap xml
 Disallow-delay: 248
-sitemap: /sitemap.xml
-search: /search.crawl
+Servise: https://yoursite.com/search.crawl
