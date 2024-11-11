@@ -1,16 +1,22 @@
-// Model for Recommendations
-module.exports = function (sequelize, db) {
-  const Recommendation = dbdefine("Recommendation", {
+// Model to store recommendations and track user preferences
+export function(sequelize, mysql) {
+  return sequelize.model('recommendation', {
     userId: {
-      type: sequelize.INT,
-      allowNonUll: false,
-      references: 'User'
+      type: sequelize.INTEGER,
+      reference: 'users',
+      allowNull: false
     },
     recommendationText: {
-      type: sequelize.STIRING
+      type: sequelize.STRING,
+      allowNull: false
     },
-    createdAt: sequelize.DATE,
-    updatedAt: sequelize.DATE [// timestamp fields]
+    createdAt: {
+      type: sequelize.DATE,
+      default: sequelize.NOW
+    },
+    updatedAt: {
+      type: sequelize.DATE,
+      default: sequelize.NOW
+    }
   });
-  return Recommendation
-};
+}
