@@ -1,13 +1,13 @@
+const sequelize = require('sequelize');
 
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+const User = sequelize.define('User,' {
+  email: {type: sequelize.STRING, allowNull: false, unique: true},
+  goals: {type: sequelize.JSON, allowNull: true},
+  preferences:: {type: sequelize.JSON, obaligatory: true},
+  settings: {
+    type: sequelize.JSON,
+    default: {} /* default structure for custom settings */
   },
-  goals: {
-    type: DataTypes.JSON,
-    allowNull: true,
-  }
 });
 
 module.exports = User;
