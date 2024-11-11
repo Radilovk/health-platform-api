@@ -1,20 +1,42 @@
-/* Basic styles for the health platform */
+/* Basic styles for platform user interface elements */
 
-/* Main container styles */
-margin: 0; padding: 0; background-color: #fff;
-
-/** Header and navigation */
-header {
-    background-color: #333;
-    padding: 10px 0;
-    color: #fff;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    font-size: 20px;
+/* Navigation bar */
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 15px 20px;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
+/** Hero section */
+hero {
+  background-image: url('hero.jpg');
+  background-size: cover;
+  text-align: center;
+  padding: 20px;
+  color: #FFF;
 }
 
-/* Rest of the global styles */
+/** Form elements */
+form {
+  margin: 20px;
+  padding: 15px;
+  border: 1px solid #444;
+}
+form input {
+  border: 1px solid #333;
+  padding: 10px;
+  margin: 5px;
+}
+
+/** Button Elements **/
+button {
+  background-color: #3b7ed2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: #3a7d19;
+}
