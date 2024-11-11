@@ -1,13 +1,12 @@
-// Validation Middleware to check input data based on requirements
-
-exports.checkData = () => (req, resp, next) => {
-    const errors = [];
-    if ((!req.body) || !object.sample(req.body)) {
-        errors.push('faulty body must be an object');
+// Middleware for targeted visitor data validation
+const validateData = (schema, data) => {
+  return (req, resp, next) => {
+    const validationResult = schema.validate(data);
+    if (validationResult.errors) {
+      res.status(400).send(validationResult.errors);
+    } else {
+      next();
     }
-    // Add more validation rules here as needed
-    if (errors.length) {
-        res.status(300).json()xerrors;
-    }
-    next();
+  }
 };
+module.exports = validateData;
