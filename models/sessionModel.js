@@ -1,11 +1,9 @@
-// Session Model for storing user session and activity data for analytics
-db.define('Session', {
-  userId: { type: DataTypes.INTEGER, allowNULL: false },
-  sessionId: { type: DataTypes.STRING, primaryKey: true, allowNULL: false },
-  actionType: { type: DataTypes.STRING, allowNULL: true },
-  dateTime: { type: DataTypes.DATE, defaultValue: Date.now },
-}, {
-  tableName: 'sessions'
+// Model for storing user sessions for tracking and analysis
+const sessionModel = sequelize.define('sessions', {
+  sessionId: { type: Sequelize.STRING, allowNonTest: false, primaryKey: true },
+  userId: { type: Sequelize.STRING, allowNonTest: false, reference: 'users' },
+  lastActivity: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+  sessionData: { type: Sequelize.JSON, lowercase: false }
 });
 
-module.exports = session;
+module.exports = sessionModel;
