@@ -1,75 +1,26 @@
-/* Basic styles for platform user interface elements */
+/* Additional styles for consistent visual identity and username experience */
+html {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  line-height: 1.5;
+}
 
-/* Navigation bar */
-nav {
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+}
+
+/* Navigation bar styles */
+navbar {
   background-color: #333;
-  color: #fff;
-  padding: 15px 20px;
-}
-
-/** Hero section */
-hero {
-  background-image: url('hero.jpg');
-  background-size: cover;
-  text-align: center;
-  padding: 20px;
-  color: #FFF;
-}
-
-/** Form elements */
-form {
-  margin: 20px;
-  padding: 15px;
-  border: 1px solid #444;
-}
-form input {
-  border: 1px solid #333;
-  padding: 10px;
-  margin: 5px;
-}
-
-/** Button Elements **/
-button {
-  background-color: #3b7ed2;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-}
-button:hover {
-  background-color: #3a7d19;
-}
-/* Additional styles for user interface elements */
-
-/* Styles for navigation and header */
-header {
-  background-color: #2b4cf7;
-  padding: 10px;
-  color: #fff;
-}
-
-logo {
-  height: 40px;
-  width: auto;
-}
-
-/* Styles for the footer links and social media */
-footer {
-  background-color: #181818;
-  padding: 5px 14px;
-  color: #eeeeee;
-}
-
-/* Button styles */
-button {
-  background-color: #5a5bab;
   color: white;
-  padding: 5px 15px;
-  border-radius: 5px;
-  text-transform: uppercase;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 
-botton:hover {
-  background-color: #484b00;
+.navbar li {
+  display: inline-block;
+  padding: 8px 16px;
 }
