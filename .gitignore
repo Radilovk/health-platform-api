@@ -1,0 +1,7 @@
+# General files and directories to ignore
+/.env
+node_modules/
+# Git net log files and local development settings
+*.config
+react-app/cache/
+examples/
