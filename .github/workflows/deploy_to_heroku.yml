@@ -1,0 +1,12 @@
+name: "Automatic Deploy to Heroku"
+on: push:
+  branches: [main]
+
+allow-schedule: setup:
+  deploy_type: manual
+
+env: GF_TAKE = {{your_heroku_token}}
+
+jobs:
+  - name: "Deploy to Heroku"
+    run: heroku heroku deploy --app name your_heroku_app_name --rem name main
