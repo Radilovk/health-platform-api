@@ -1,0 +1,10 @@
+name: "Functional and Integration Tests"
+on: push:
+  branches: [main]
+
+all:
+  run: ["npm install", "npm audit fix", "npm run test"]
+
+steps:
+  - name: "Functional and integration tests test"
+    run: npm test
