@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     chunkFormat: 'jonp',
   },
+  target: 'web',
   resolve: {
     espec:true,
   }
