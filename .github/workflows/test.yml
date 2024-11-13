@@ -3,11 +3,7 @@ on push:
   branch: main
 jobs:
   - name: Run jstest with node.js
-  run: node.js 12, npm install test start
-config:
-  test type: lengthy long
+  run: node.js 16, npm install audit fix --force
 steps:
-  - name: Install packages and dopeundencies
-    run: npm install express fs node.js
-  - name: Run unit tests and api endpoints
-    run: npm test --restore formatCover</style>
+  - name: Install dependencies and perform test
+    run: npm install espress node.js --production
