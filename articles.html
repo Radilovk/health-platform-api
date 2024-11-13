@@ -5,7 +5,7 @@
     <title>Articles - Zdravoslovna Platforma</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="loadArticles()">
 <nav class="navbar">
     <div class="container">
         <h1>Health Publications and Articles</h1>
@@ -14,19 +14,19 @@
 </n>
 
 <div class="container">
-    <div class="list-of-articles">
-        <div class="article-item">
-            <h1>How to Stay Fit</h1>
-            <p>The importance of staying fit while working is one of the key factors in health.</p>
-        </div>
-        <div class="article-item">
-            <h1>Techniques to Reduce Stress</h1>
-            <p>These techniques can help reduce your stress levels.</p>
-        </div>
-        <div class="article-item">
-            <h1>Ways to Improve Sleep</h1>
-            <p>Planning your sleep schedule is starting with these tips.</p>
-        </div>
-    </div>
+    <div class="list-of-articles" id="articleList"></div>
+</div>
+<script>
+    async function loadArticles() {
+        const response = await fetch('/api/articles');
+        const articles = await response.json();
+        let html = '';
+        articles.forEach(article => {
+            html += `<div class='article-item'><h1>${article.title}</h1><p>${article.shortDesc}</p></div>`;
+        });
+        document.getElementById('articleList').innerHTML = html;
+    }
+|
+</script>
 </body>
 </html>
