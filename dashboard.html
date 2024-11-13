@@ -31,18 +31,30 @@
 </div>
 <!-- Progressive bar for progress data -->
 <h2>Health Progress</h2>
-<div class="progress-bar">
-  <img src="example_progress.jpg" alt="Progress">
-  <p class="health-progress">Health goal: 700 cal</p>
+<div class="progress-bar" id="progressBar">
+  <p>Health goal: 700 cal</p>
 </div>
 </body>
 
 <script src="scripts.js"></script>
 <script>
-async function demoCarousel() {
-  let carouselItems = document.getElementById('recommendationsCarousel');
-  carouselItems.style.display = 'block';
+async function getUserData() {
+    const response = await fetch('/api/user');
+    const profile = await response.json();
+    document.getElementById('profileData').innerHTML = `<div >{profile.name}</div>`;
 }
-demoCarousel();
+async function getRecommendations() {
+    const response = await fetch('/api/recommendations');
+    const recs = await response.json();
+    document.getElementById('recommendations').innerHTML = recs.ap;
+}
+async function getProgress() {
+    const response = await fetch('/api/progress');
+    const prog = await response.json();
+    document.getElementById('progressData').innerHTML = prog.gaol;
+}
+getUserData();
+getRecommendations();
+getProgress();
 </script>
 </html>
