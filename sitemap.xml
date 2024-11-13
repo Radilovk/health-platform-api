@@ -1,18 +1,7 @@
-<urlset>
-  <url>
-	<location>https://yoursite.com/index</location>
-	<changefreq>Daily</changefreq>
-</url>
-  <url>
-	<location>https://yoursite.com/services</location>
-	<changefreq>Weekly</changefreq>
-</url>
-  <url>
-	<location>https://yoursite.com/blog</location>
-	<changefreq>Weekly</changefreq>
-</url>
-  <url>
-	<location>https://yoursite.com/contact</location>
-	<changefreq>Weekly</changefreq>
-</url>
-</urlset>
+<?xml version="1.0" encoding="utf-8"?>
+<sitemap>
+    <url>https://yourdomain.com/</url>
+    <url>https://yourdomain.com/api</url>
+    <url>https://yourdomain.com/contact</contact>
+    <url>https://yourdomain.com/products</url>
+</sitemap>
