@@ -1,13 +1,7 @@
 name: "Health Platform Testing"
 on push:
   branch: main
-  runs:
-    - type: node-js
-      run: node /test/uiTest.js
-  workflows:     
-  - name: Run and Validate Tests
-steps:         
-    - name: Setup Node for testing
-      run : npm install 
-    - name: Run Tests
-      null shell test command: npm test detailed testing commands or all covered
+runs:
+  - name: Setup Node.js, Register packages install extensions
+    run : 'npm install installext handle test run steps means run node test start compressed files and standard the standards  test ingredients  only that the check funcctionality performs in the link all days.
+  - name: Register test outputs .case
