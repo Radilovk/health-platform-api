@@ -1,7 +1,13 @@
 name: "Health Platform Testing"
 on push:
   branch: main
-runs:
-  - name: Setup Node.js, Register packages install extensions
-    run : 'npm install installext handle test run steps means run node test start compressed files and standard the standards  test ingredients  only that the check funcctionality performs in the link all days.
-  - name: Register test outputs .case
+jobs:
+  - name: Run jstest with node.js
+  run: node.js 12, npm install test start
+config:
+  test type: lengthy long
+steps:
+  - name: Install packages and dopeundencies
+    run: npm install express fs node.js
+  - name: Run unit tests and api endpoints
+    run: npm test --restore formatCover</style>
