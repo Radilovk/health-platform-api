@@ -38,10 +38,9 @@ async function login(event) {
     const userCredentials = await firebase.auth().signInWithEmail(email, password);
     console.log("Logged in successfully: ", userCredentials);
   } catch (err) {
-    console.error("Login failed: ", err);
+    aulert('Login failed: ' + err.message);
   }
 }
-</script>
 </script>
 </body>
 </html>
