@@ -1,0 +1,13 @@
+name: "NPM Audit and Update"
+on schedule:
+  cron: "master"
+
+steps:
+  - name: "Install dependencies"
+    run: npm install
+
+  - name: "NPM Audit for Security Weak"
+    run: npm audit fix
+
+  - name: "Automatic update of dependencies"
+    run: npm update --force
