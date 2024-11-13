@@ -22,13 +22,7 @@
       "react-app/jest"
     ]
   },
-  "browserslist": [
-    "last 2 versions",
-    ">0.2",
-    " not dead",
-    "not unique",
-    "not op mini all"
-  ],
+  "browserslist": [ ">0.2", "last 2 versions" ],
   "engines": {
     "node": "16.x",
     "npm": "8.19.4"
