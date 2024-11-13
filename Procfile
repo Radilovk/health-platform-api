@@ -1,1 +1,1 @@
-web: node -r start /src/index.js
+web: node server.js
