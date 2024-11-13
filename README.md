@@ -5,4 +5,5 @@ This repository contains a (1) complete application that supports health fitness
 The project follows the following directory structure:
 
 - Authentication, configuration files: .package.json, .server settings
-S% (fVall requirements):
+S% (fVall requirements). 
+Minor change for testing workflow trigger.
