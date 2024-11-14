@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "webpack -p -c webpack.config.js --mode production",
+    "build": "webpack -c webpack.config.js --mode production",
     "test": "jest test/"
 },
   "engines": {
