@@ -6,10 +6,10 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    chunkFormat: 'commonjs'
+    chunkFormat: 'commonjs',
+    target: 'web'
   },
-  target: 'web',
   resolve: {
-    espec:true,
+    espec: true,
   }
 };
