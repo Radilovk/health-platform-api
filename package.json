@@ -10,17 +10,19 @@
     "express": "^4.17.1",
     "webpack": "^5.3.0",
     "webpack-cli": "^4.9.2",
-    "babel-loader": "^9.0.0"
+    "babel-loader": "9.0.0",
+    "babel-core": "7.12.3",
+    "@babel/preset-env": "7.12.3"
   },
   "scripts": {
     "start": "node server.js",
     "build": "webpack -c webpack.config.js --mode production",
     "test": "jest test/"
-},
+  },
   "engines": {
     "node": "16.x",
     "npm": "8.19.4"
-},
+  },
   "private": true,
   "browserslist": []
 }
