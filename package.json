@@ -13,11 +13,12 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack -p -c webpack.config.js --mode production",
-    "test": "jest test/"},
+    "test": "jest test/"
+},
   "engines": {
-    "node": "16.x",
-    "npm": "8.19.4",
-  },
+    "nodes": "16.x",
+    "npm": "8.19.4"
+},
   "private": true,
   "browserslist": []
 }
