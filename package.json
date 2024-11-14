@@ -16,7 +16,7 @@
     "eject": "react-scripts eject"
   },
   "engines": {
-    "node.iron": "16.20.2",
+    "node.js": "16.x",
     "npm": "8.19.4"
   }
 }
