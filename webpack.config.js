@@ -1,4 +1,9 @@
+// Updated Webpack Configuration
+use strict; // Enable strict mode for better compilation
+const path = require('path');
+
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -9,13 +14,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\\(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       }
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*.webpack.config.js', *'.js', '*.jsx']
   }
 };
