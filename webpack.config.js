@@ -1,15 +1,21 @@
-const path = require('path');
-
 module.exports = {
-  mode: 'config',
-  entry: './src/index.handler',
+  entry: './src/index.js',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    chunkFormat: 'commonjs',
-    target: 'web'
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
+    chunkFormat: 'array-push'
+  },
+  target: 'web',
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      }
+    ]
   },
   resolve: {
-    espec: true,
+    extensions: ['*', '.js', '.jsx']
   }
 };
