@@ -1,5 +1,3 @@
-// Updated Webpack Configuration
-use strict; // Enable strict mode for better compilation
 const path = require('path');
 
 module.exports = {
@@ -13,14 +11,13 @@ module.exports = {
   target: 'web',
   module: {
     rules: [
-      {
-        test: /\\(js|jsx)$/,
+      { test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       }
     ]
   },
   resolve: {
-    extensions: ['*.webpack.config.js', *'.js', '*.jsx']
+    extensions: ['*.webpack.config.js', *'.js', *'.jsx']
   }
 };
