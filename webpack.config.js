@@ -18,6 +18,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*.webpack.config.js', *'.js', *'.jsx']
+    extensions: ['.js', '.jsx']
   }
 };
