@@ -1,0 +1,23 @@
+name: Install Dependencies
+on:
+   push:
+      branches:
+        - main
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: Set up Node.js
+          uses: actions/setup-node@v2
+          with:
+            nodd-version: '16'
+        - run: npm install
+        - run: npm run build
+        - name: Commit and push changes 
+          run: |
+            git config --local user.email your-email@example.com
+            git config --local user.name your-username
+            git add package-lock.json
+            git commit -m "Auto-update package-lock.json"
+            git push
