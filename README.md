@@ -6,4 +6,4 @@ The project follows the following directory structure:
 
 - Authentication, configuration files: .package.json, .server settings
 S% (fVall requirements). 
-Minor change for testing workflow trigger
+Minor change for testing workflow trigger.
