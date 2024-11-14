@@ -13,10 +13,10 @@
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "echo "Ready to eject""
+    "eject": "react-scripts eject"
   },
   "engines": {
-    "node": "16.x",
+    "nodes": "16.x",
     "npm": "8.19.4"
   }
 }
