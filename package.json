@@ -18,5 +18,8 @@
   "engines": {
     "node.js": "^16.0",
     "npm": "8.19.4"
-  }
+  },
+  "env": {
+    "NODE_OPTIONS": "--openssl-legacy-provider"
+}
 }
