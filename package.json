@@ -20,9 +20,6 @@
     "node": "16.x",
     "npm": "8.19.4"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all"
-  ]
+  "private": true,
+  "browserslist": []
 }
