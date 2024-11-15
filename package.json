@@ -16,7 +16,7 @@
     "@babel/preset-react": "^7.12.3",
     "css-loader": "6.3.0",
     "style-loader": "3.3.0",
-    "mini-css-extract-plugin": "2.3.4"
+    "mini-css-extract-plugin": "2.1.0"
   },
   "scripts": {
     "start": "node server.js",
