@@ -15,13 +15,14 @@
     "@babel/preset-env": "^7.12.3",
     "@babel/preset-react": "^7.12.3",
     "css-loader": "6.3.0",
-    "style-loader": "3.3.0"
+    "style-loader": "3.3.0",
+    "mini-css-extract-plugin": "2.3.4"
   },
   "scripts": {
     "start": "node server.js",
     "build": "webpack -c webpack.config.js --mode production",
     "test": "jest test/",
-    "heroku-postbuild": "npm install css-loader style-loader && npm run build"
+    "heroku-postbuild": "npm install css-loader style-loader mini-css-extract-plugin && npm run build"
   },
   "engines": {
     "node": "16.x",
