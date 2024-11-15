@@ -1,4 +1,5 @@
 const path = require('path');
+const miniCssExtractPlugin = require('module-mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
@@ -16,11 +17,17 @@ module.exports = {
         use: ['babel-loader']
       },
       { test: /\\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          miniCssExtractPlugin.loader(),
+          'css-loader'
+        ]
       }
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css']
-  }
+  },
+  plugins: [
+    new miniCssExtractPlugin()
+  ]
 };
