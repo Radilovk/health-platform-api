@@ -21,8 +21,7 @@
     "start": "node server.js",
     "build": "webpack -c webpack.config.js --mode production",
     "test": "jest test/",
-    "heroku-postbuild": "echo 'Node env: '$NODE_ENV'; npm install css-loader style-loader && npm run build"
-
+    "heroku-postbuild": "npm install css-loader style-loader && npm run build"
   },
   "engines": {
     "node": "16.x",
