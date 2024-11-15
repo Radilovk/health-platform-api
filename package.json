@@ -20,7 +20,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack -c webpack.config.js --mode production",
-    "test": "jest test/"
+    "test": "jest test/",
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "16.x",
