@@ -23,6 +23,6 @@
     "node": "16.x",
     "npm": "8.19.4"
   },
-  "private": true,
-  "browserslist": []
+  "browserslist": ["last 2 versions"],
+  "private": true
 }
