@@ -1,0 +1,14 @@
+name: Validate Configs
+executors: 
+  node
+
+uses: 
+  - name: Check out configs script
+    id: Actions/Checkout@latest
+    with:
+      node-version: 16
+
+steps:
+  - name: Run validation script
+    run: cd $({sha}) || node scripts/validate-configs.js
+All configuration files validated
