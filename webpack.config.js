@@ -1,5 +1,6 @@
+
 const path = require('path');
-const miniCssExtractPlugin = require('mmini-css-extract-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
@@ -16,9 +17,9 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader']
       },
-      { test: /\\.css$/,
+      { test: /\.css$/,
         use: [
-          miniCssExtractPlugin.loader(),
+          miniCssExtractPlugin.loader,
           'css-loader'
         ]
       }
@@ -27,6 +28,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.css']
   },
+  devtool: 'source-map',
   plugins: [
     new miniCssExtractPlugin()
   ]
