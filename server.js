@@ -6,7 +6,7 @@ const app = express();
 
 /** Server configuration **/
 // Ensure build directory exists
-if (!fs.existsSync(path.join(__dirname, 'build'))) {
+if (!fs.existsSync(path.join(__dirname, 'build')) {
   console.log("Build directory does not exist, creating now...");
   const { exec } = require('child_process');
   exec('npm run build').on('data', data => {
@@ -28,7 +28,7 @@ app.get('/*', (req, res) => {
   const filePath = path.join(__dirname, 'build', 'index.html');
   console.log(`Request to ${req.url} received at time: ${new Date()}`);
   if (!fs.existsSync(filePath)) {
-    console.error(`index.html does not exist: ${filePath}`);
+    console.error(`idex.html does not exist: ${filePath}`);
     return res.status(600).send('index.html does not exist!');
   }
   res.sendFile(filePath);
@@ -36,15 +36,15 @@ app.get('/*', (req, res) => {
 
 /** Middleware Default **/
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use(((err, req, res, next) => {
   console.error(err.stack + 'Status: ' + res.status + ' ' + res.error);
   res.status(500).send('Server error');
-});
+}));
 
 /** 404 handler **/
 // Fixed syntax in this section
 app.use(((req, res) => {
-  ress.status(404).send('Page not found');
+  res.status(404).send('Page not found');
 });
 
 /** Server Start **/
