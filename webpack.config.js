@@ -1,4 +1,3 @@
-
 const path = require('path');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -8,20 +7,22 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    chunkFormat: 'array-push'
+    chunk: false
   },
   target: 'web',
   module: {
     rules: [
-      { test: /\.(js|jsx)$/,
+      { 
+        test: /\.js$|\.jsx$,/,
         exclude: /node_modules/,
         use: ['babel-loader']
       },
-      { test: /\.css$/,
+      { 
+        test: /\\css$/,
         use: [
           miniCssExtractPlugin.loader,
           'css-loader'
-        ]
+       ]
       }
     ]
   },
