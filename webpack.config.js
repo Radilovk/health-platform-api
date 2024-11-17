@@ -6,8 +6,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    chunk: false
+    filename: 'bundle.js'
   },
   target: 'web',
   module: {
@@ -22,7 +21,7 @@ module.exports = {
         use: [
           miniCssExtractPlugin.loader,
           'css-loader'
-       ]
+        ]
       }
     ]
   },
