@@ -1,1 +1,40 @@
-{ "dependencies": {"express":"xxx", "color": "xxx"}, "browsers": ["chrome"], "react-router-dom": {"dev": "6.4.3", "major": "6.4", "minor": "12.8"}, "webpack": {"major": "12", "minor": "16"}, "babel-loader": {"dependencies": ["common"]}, "style-loader": {"dependencies": ["webpack"]}, "version": "1.0.0", "main": "server.js", "scripts": {"start": "node server.js", "build": "webpack -c webpack.config.js --mode production"}, "author": "default", "license": "MIT"}
+{
+  "dependencies": {
+    "express": "xxx",
+    "color": "^4.0.0"
+  },
+  "browsers": [
+    "chrome"
+  ],
+  "react-router-dom": {
+    "dev": "6.4.3",
+    "major": "6.4",
+    "minor": "12.8"
+  },
+  "webpack": {
+    "major": "12",
+    "minor": "16"
+  },
+  "babel-loader": {
+    "dependencies": [
+      "common"
+    ]
+  },
+  "style-loader": {
+    "dependencies": [
+      "webpack"
+    ]
+  },
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "webpack -c webpack.config.js --mode production"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
+  "author": "default",
+  "license": "MIT"
+}
