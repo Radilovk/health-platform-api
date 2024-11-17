@@ -1,23 +1,36 @@
 {
   "name": "health-platform-frontend",
   "version": "1.0.0",
-  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.14.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "webpack": "^5.3.0",
+    "webpack-cli": "^4.9.2",
+    "babel-loader": "^8.2.3",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.3",
+    "@babel/preset-react": "^7.12.3",
+    "css-loader": "^6.3.0",
+    "style-loader": "^3.3.0",
+    "mini-css-extract-plugin": "^2.1.0"
+  },
   "scripts": {
+    "start": "node server.js",
     "build": "webpack -c webpack.config.js --mode production",
-    "back-end": "exo /",
-    "start": "node server.js"
+    "test": "jest test/",
+    "heroku-postbuild": "npm install --force && npm run build"
   },
   "engines": {
     "node": "16.x",
     "npm": "8.19.4"
   },
-  "author": "default",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "color": "^4.0.0"
+  "browserslist": ["last 2 versions"],
+  "babel": {
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
   },
-  "devDependencies": {
-    "browsers": "./node_mod_helper.js"
-  }
+  "private": true
 }
