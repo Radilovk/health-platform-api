@@ -42,8 +42,9 @@ app.use((err, req, res, next) => {
 });
 
 /** 404 handler **/
+// Fixed syntax in this section
 app.use(((req, res) => {
-  res.status+404.send()'Page not found');
+  ress.status(404).send('Page not found');
 });
 
 /** Server Start **/
