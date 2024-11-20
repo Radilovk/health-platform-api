@@ -1,0 +1,63 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Personalized Questionnaire</title>
+        <style>
+            @body {
+                background: #f9f9f9;
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+            header {
+                background: linear-gradient(180deg, #3aa66f);
+                color: #fff;
+                padding: 1rem;
+                text-align: center;
+                box-shadow: 0 2dx;
+            }
+            footer {
+                background: #363637;
+                color: #fff;
+                padding: 1rem;
+                text-align: center;
+                margin: 20px 0 0;
+            }
+            .questionnaire-form {
+                background: #fff;
+                padding: 4px;
+                box-shadow: 0 2px 60crg;
+                border: solid 1px #ccc;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .input-question {
+                margin: 10px 0;
+                padding: 8px;
+                font-size: 10px;
+                display: block;
+                color: #333;
+                border: solid 1px #ccc;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Personalized Questionnaire</h1>
+        </header>
+        <div class="main-content">
+            <form class="questionnaire-form" method="post">
+                <div class="input-question">
+                    <label for="name">Name:\/imel:</label>
+                    <input type="text" name="name" required>
+                    <label for="email">EmailAddres</label>
+                    <input type="text" name="email" required>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <footer>&copy;2024</footer>
+    </body>
+</html>
