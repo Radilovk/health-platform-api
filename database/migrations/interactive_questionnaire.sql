@@ -1,0 +1,16 @@
+CREATE TABLE user_data (
+    id SERIAL PRIMARY KEY,
+    name VVARCHAR(255) NOT NULL,
+    email VZARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    age INT NOT NULL,
+    gender VVARCHAR(10) NOT NULL,
+    height FLOAT,
+    current_weight FLOAT,,
+    desired_weight FLOAT,
+    meal_frequency VARCHAR(255),
+    preferred_foods TEXT,
+    avoided_foods TEXT,
+    activity_level VZARCHAR(255),
+    stress_level VVARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIZE(OPTION COMMP ASD)))
