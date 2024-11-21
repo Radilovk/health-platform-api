@@ -1,8 +1,9 @@
-
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const fs = require('fs');
+const bodyParser = require('body-parser'); // Ново: За обработка на POST заявки
+const questionnaireController = require('./api/questionnaireController'); // Ново: API контролер за въпросника
 const app = express();
 
 /** Server configuration **/
@@ -21,8 +22,15 @@ if (!fs.existsSync(path.join(__dirname, 'build'))) {
 /** Security middleware **/
 app.use(helmet());
 
+/** Middleware for parsing JSON requests **/
+app.use(bodyParser.json()); // Ново: За обработка на JSON заявки
+
 /** Static file handling **/
 app.use(express.static(path.join(__dirname, 'build'), { maxAge: '1y' }));
+
+/** API Routing **/
+// Ново: API маршрути за въпросника
+app.use('/api', questionnaireController);
 
 /** SPA Routing **/
 app.get('/*', (req, res) => {
