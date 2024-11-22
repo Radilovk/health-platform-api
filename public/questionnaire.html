@@ -79,7 +79,143 @@
     </header>
     <div class="main-content">
         <form id="questionnaire-form">
-            <!-- Form fields go here -->
+            <div class="form-card">
+                <h2>1. Contact Information</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="password">Choose Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+
+            <div class="form-card">
+                <h2>2. Personal Information</h2>
+                <label>Gender:</label>
+                <input type="radio" id="male" name="gender" value="male" required> Male
+                <input type="radio" id="female" name="gender" value="female"> Female
+                <input type="radio" id="other" name="gender" value="other"> Other
+
+                <label>Age:</label>
+                <select id="age" name="age">
+                    <option value="<18">Under 18</option>
+                    <option value="18-29">18-29</option>
+                    <option value="30-39">30-39</option>
+                    <option value="40-49">40-49</option>
+                    <option value="50-59">50-59</option>
+                    <option value="60+">60+</option>
+                </select>
+
+                <label>Ethnicity (Optional):</label>
+                <select id="ethnicity" name="ethnicity">
+                    <option value="european">European</option>
+                    <option value="asian">Asian</option>
+                    <option value="african">African</option>
+                    <option value="latin">Latin American</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-card">
+                <h2>3. Health Status</h2>
+                <label>Do you have any diagnosed health problems?</label>
+                <input type="radio" id="yes-health" name="health_issues" value="yes"> Yes
+                <input type="radio" id="no-health" name="health_issues" value="no"> No
+
+                <label>Do you have any food allergies or intolerances?</label>
+                <input type="radio" id="yes-allergies" name="allergies" value="yes"> Yes
+                <input type="radio" id="no-allergies" name="allergies" value="no"> No
+
+                <label>Do you take any medications or supplements?</label>
+                <input type="radio" id="yes-meds" name="medications" value="yes"> Yes
+                <input type="radio" id="no-meds" name="medications" value="no"> No
+
+                <label>Do you have any digestive issues?</label>
+                <input type="checkbox" id="bloating" name="digestive_issues" value="bloating"> Bloating
+                <input type="checkbox" id="constipation" name="digestive_issues" value="constipation"> Constipation
+                <input type="checkbox" id="diarrhea" name="digestive_issues" value="diarrhea"> Diarrhea
+                <input type="checkbox" id="no-digestive-issues" name="digestive_issues" value="none"> None
+            </div>
+
+            <div class="form-card">
+                <h2>4. Eating Habits</h2>
+                <label>What is your current diet?</label>
+                <select id="diet" name="diet">
+                    <option value="omnivore">Omnivore</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="low-carb">Low-carb</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label>How many meals do you have per day?</label>
+                <select id="meals_per_day" name="meals_per_day">
+                    <option value="1-2">1-2</option>
+                    <option value="3-4">3-4</option>
+                    <option value="5-6">5-6</option>
+                </select>
+
+                <label>Do you snack between meals?</label>
+                <input type="radio" id="yes-snack" name="snacks" value="yes"> Yes
+                <input type="radio" id="no-snack" name="snacks" value="no"> No
+
+                <label>What drinks do you prefer most often?</label>
+                <input type="checkbox" id="water" name="preferred_drinks" value="water"> Water
+                <input type="checkbox" id="juice" name="preferred_drinks" value="juice"> Juice
+                <input type="checkbox" id="soda" name="preferred_drinks" value="soda"> Soda
+                <input type="checkbox" id="coffee-tea" name="preferred_drinks" value="coffee-tea"> Coffee/Tea
+                <input type="checkbox" id="other-drinks" name="preferred_drinks" value="other"> Other
+            </div>
+
+            <div class="form-card">
+                <h2>5. Lifestyle</h2>
+                <label>What is your usual activity level?</label>
+                <select id="activity_level" name="activity_level">
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light">Light physical activity</option>
+                    <option value="moderate">Moderate physical activity</option>
+                    <option value="high">High physical activity</option>
+                </select>
+
+                <label>How many hours do you sleep per night?</label>
+                <select id="sleep_hours" name="sleep_hours">
+                    <option value="<5">Less than 5</option>
+                    <option value="5-6">5-6</option>
+                    <option value="7-8">7-8</option>
+                    <option value=">8">More than 8</option>
+                </select>
+
+                <label>How often do you exercise?</label>
+                <select id="exercise_frequency" name="exercise_frequency">
+                    <option value="never">Almost never</option>
+                    <option value="1-2">1-2 times a week</option>
+                    <option value="3-5">3-5 times a week</option>
+                    <option value="daily">Every day</option>
+                </select>
+            </div>
+
+            <div class="form-card">
+                <h2>6. Goals and Motivation</h2>
+                <label>What is your main goal?</label>
+                <select id="goals" name="goals">
+                    <option value="weight-loss">Weight loss</option>
+                    <option value="muscle-gain">Muscle gain</option>
+                    <option value="energy">More energy</option>
+                    <option value="health">Improve overall health</option>
+                </select>
+
+                <label>Additional Information (Optional):</label>
+                <textarea id="additional_info" name="additional_info" rows="4"></textarea>
+            </div>
+
             <button type="submit" class="btn">Submit</button>
         </form>
     </div>
@@ -88,11 +224,14 @@
         document.getElementById('questionnaire-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Collect form data
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
 
-            // Send data to the API
+            if (data.password !== data['confirm-password']) {
+                alert('Passwords do not match!');
+                return;
+            }
+
             try {
                 const response = await fetch('/api/questionnaire', {
                     method: 'POST',
@@ -104,11 +243,11 @@
                     alert('Form submitted successfully!');
                     e.target.reset();
                 } else {
-                    alert('Error submitting form.');
+                    alert('Error submitting the form.');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Network error.');
+                alert('Network error. Please try again later.');
             }
         });
     </script>
