@@ -26,13 +26,23 @@ app.use(helmet());
 app.use(bodyParser.json()); // Ново: За обработка на JSON заявки
 
 /** Static file handling **/
+app.use(express.static(path.join(__dirname, 'public'))); // Добавено: обслужване на публични файлове
 app.use(express.static(path.join(__dirname, 'build'), { maxAge: '1y' }));
 
-/** API Routing **/
-// Ново: API маршрути за въпросника
-app.use('/api', questionnaireController);
+/** Specific route for questionnaire.html **/
+app.get('/questionnaire.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'questionnaire.html'));
+});
 
 /** SPA Routing **/
+app.get('/*', (req, res, next) => {
+  const publicFile = path.join(__dirname, 'public', req.path);
+  if (fs.existsSync(publicFile)) {
+    return res.sendFile(publicFile);
+  }
+  next(); // Продължава към SPA маршрута, ако файлът не съществува
+});
+
 app.get('/*', (req, res) => {
   const filePath = path.join(__dirname, 'build', 'index.html');
   console.log(`Request to ${req.url} received at time: ${new Date()}`);
