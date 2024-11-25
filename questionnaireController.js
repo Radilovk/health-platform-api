@@ -8,6 +8,7 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
+/** POST: Запазване на данни във въпросника */
 router.post('/questionnaire', async (req, res) => {
     try {
         const {
@@ -56,6 +57,53 @@ router.post('/questionnaire', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to save form data.' });
+    }
+});
+
+/** GET: Извличане на данни от въпросника */
+router.get('/questionnaire', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM questionnaire');
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to retrieve data.' });
+    }
+});
+
+/** PUT: Актуализация на данни */
+router.put('/questionnaire/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updates = req.body;
+
+        // Генериране на динамична SQL заявка за актуализация
+        const fields = Object.keys(updates)
+            .map((key, idx) => `${key} = $${idx + 1}`)
+            .join(', ');
+        const values = Object.values(updates);
+
+        await pool.query(
+            `UPDATE questionnaire SET ${fields} WHERE id = $${values.length + 1}`,
+            [...values, id]
+        );
+
+        res.status(200).json({ message: 'Record updated successfully!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to update record.' });
+    }
+});
+
+/** DELETE: Изтриване на запис */
+router.delete('/questionnaire/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await pool.query('DELETE FROM questionnaire WHERE id = $1', [id]);
+        res.status(200).json({ message: 'Record deleted successfully!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to delete record.' });
     }
 });
 
