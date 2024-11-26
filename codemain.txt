@@ -1,0 +1,42 @@
+{
+  "project": {
+    "goal": "Health platform with questionnaire and personalized dashboard",
+    "components": {
+      "questionnaire": {
+        "fields": ["name", "email", "phone", "digestive_issues", "preferred_drinks", "goals"],
+        "logic": {
+          "submit": {
+            "api": "/api/submit",
+            "method": "POST",
+            "backend": "Supabase",
+            "validation": "Required fields",
+            "storage": "questionnaire table"
+          }
+        }
+      },
+      "dashboard": {
+        "html_page": "dashboard.html",
+        "features": ["display user info", "recommendations", "diet plans"],
+        "fetch_data": {
+          "api": "/api/fetch-data",
+          "method": "GET",
+          "backend": "Supabase",
+          "filter": "userId"
+        }
+      }
+    },
+    "tools": {
+      "frontend": "HTML/CSS/JS hosted on Vercel",
+      "backend": "Supabase REST API",
+      "automation": "ChatGPT actions",
+      "storage": "Supabase PostgreSQL"
+    },
+    "steps": [
+      "Setup Supabase tables: questionnaire, recommendations",
+      "Create REST API for CRUD operations",
+      "Build HTML forms for questionnaire and dashboard",
+      "Deploy on Vercel",
+      "Integrate ChatGPT for API automation"
+    ]
+  }
+}
