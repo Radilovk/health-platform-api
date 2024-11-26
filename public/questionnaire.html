@@ -145,43 +145,30 @@
                 <input type="checkbox" id="no-digestive-issues" name="digestive_issues" value="none"> None
             </div>
 
-            <!-- Add additional form sections as necessary -->
+            <div class="form-card">
+                <h2>4. Eating Habits</h2>
+                <label>What is your current diet?</label>
+                <select id="diet" name="diet">
+                    <option value="omnivore">Omnivore</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="low-carb">Low-carb</option>
+                    <option value="other">Other</option>
+                </select>
 
-            <button type="submit" class="btn">Submit</button>
-        </form>
-    </div>
+                <label>How many meals do you have per day?</label>
+                <select id="meals_per_day" name="meals_per_day">
+                    <option value="1-2">1-2</option>
+                    <option value="3-4">3-4</option>
+                    <option value="5-6">5-6</option>
+                </select>
 
-    <script>
-        document.getElementById('questionnaire-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
+                <label>Do you snack between meals?</label>
+                <input type="radio" id="yes-snack" name="snacks" value="yes"> Yes
+                <input type="radio" id="no-snack" name="snacks" value="no"> No
 
-            // Validate passwords
-            if (data.password !== data['confirm-password']) {
-                alert('Passwords do not match!');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/questionnaire', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                if (response.ok) {
-                    alert('Form submitted successfully!');
-                    e.target.reset();
-                } else {
-                    const errorData = await response.json();
-                    alert(`Error: ${errorData.error || 'An unknown error occurred.'}`);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Network error. Please try again later.');
-            }
-        });
-    </script>
-</body>
-</html>
+                <label>What drinks do you prefer most often?</label>
+                <input type="checkbox" id="water" name="preferred_drinks" value="water"> Water
+                <input type="checkbox" id="juice" name="preferred_drinks" value="juice"> Juice
+                <input type="checkbox" id="soda" name="preferred_drinks" value="soda"> Soda
+               
