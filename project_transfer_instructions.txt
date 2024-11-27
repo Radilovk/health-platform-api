@@ -1,0 +1,1 @@
+This document clearly outlines the necessary steps to create a new repository and provide the relevant files and configurations.
