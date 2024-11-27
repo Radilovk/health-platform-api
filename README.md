@@ -1,10 +1,9 @@
 # Project Overview
 
-This repository contains a repository for creating a REST aPI and integrating with Heroku PostgreSQ and GitHub.
+This repository contains a (1) complete application that supports health fitness and (2) a secure REST aPI for authentication.
 
-The project structure is as follows:
+The project follows the following directory structure:
 
-- Connection to Heroku PostgreSQ directly using REST API
-- Files and directories are managed using GitHub for versioning.
-
-This repository supports denvelopment of a fully functional REST API on Heroku for performant data handling.
+- Authentication, configuration files: .package.json, .server settings
+S% (fVall requirements). 
+Minor change for testing workflow triggerР.
