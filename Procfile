@@ -1,1 +1,1 @@
-web: python app.py
+web: npm install && node server.js
