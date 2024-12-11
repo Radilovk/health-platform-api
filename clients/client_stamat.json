@@ -1,0 +1,9 @@
+{
+  "name": "Stamat",
+  "age": 40,
+  "preferences": [
+    "sports",
+    "fitness",
+    "mountaineer"
+  ]
+}
