@@ -1,0 +1,9 @@
+
+{
+  "name": "Иван Кунчев",
+  "age": 30,
+  "preferences": {
+    "interests": ["спорт", "пътувания", "технологии"],
+    "preferred_contact": "email"
+  }
+}
